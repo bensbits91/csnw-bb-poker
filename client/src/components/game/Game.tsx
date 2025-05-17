@@ -69,7 +69,7 @@ export function Game() {
                Winner(s): {winners.join(', ')}
             </div>
          )}
-         <div className='players grid grid-cols-2 gap-8'>
+         <div className='players grid md:grid-cols-2 gap-8'>
             {players.map((hand, index) => (
                <Hand
                   key={index}
