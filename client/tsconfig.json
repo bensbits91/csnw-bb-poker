@@ -5,7 +5,7 @@
       "esModuleInterop": true, // Ensure compatibility with CommonJS modules
       "module": "commonjs", // Use CommonJS for Jest compatibility
       "target": "ES2019", // Target a compatible ECMAScript version
-      "jsx": "react", // If you're using React
+      "jsx": "react-jsx", // If you're using React
       "baseUrl": "./", // Set the base URL for module resolution
       "paths": {
          "@/*": ["src/*"] // Map @/ to the src/ directory

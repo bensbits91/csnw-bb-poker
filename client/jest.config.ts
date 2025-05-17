@@ -2,7 +2,8 @@ import type { Config } from 'jest';
 
 const config: Config = {
    preset: 'ts-jest', // Use ts-jest for TypeScript files
-   testEnvironment: 'node', // Set the test environment to Node.js
+   testEnvironment: 'jsdom', // Set the test environment to jsdom
+   // testEnvironment: 'node', // Set the test environment to Node.js
    transform: {
       '^.+\\.tsx?$': 'ts-jest' // Use ts-jest to transform TypeScript files
    },

@@ -18,6 +18,7 @@ export function Card({
 }: CardProps) {
    const cardColor = card[card.length - 1]; // Get the last character of the card string
    const isRed = cardColor === '♥' || cardColor === '♦';
+
    return (
       <div
          className={clsx(

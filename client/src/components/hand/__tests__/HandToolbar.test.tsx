@@ -1,0 +1,48 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { HandToolbar } from '../HandToolbar';
+
+describe('HandToolbar Component', () => {
+   const mockOnKeepAllClick = jest.fn();
+   const mockOnReplaceClick = jest.fn();
+
+   it('renders buttons and handles clicks', () => {
+      render(
+         <HandToolbar
+            isSelection={true}
+            isLocked={false}
+            onKeepAllClick={mockOnKeepAllClick}
+            onReplaceClick={mockOnReplaceClick}
+         />
+      );
+
+      // Verify buttons are rendered
+      const keepAllButton = screen.getByText('Keep all');
+      const replaceButton = screen.getByText('Replace selected');
+
+      expect(keepAllButton).toBeInTheDocument();
+      expect(replaceButton).toBeInTheDocument();
+
+      // Simulate button clicks
+      fireEvent.click(keepAllButton);
+      fireEvent.click(replaceButton);
+
+      expect(mockOnKeepAllClick).toHaveBeenCalled();
+      expect(mockOnReplaceClick).toHaveBeenCalled();
+   });
+
+   it('disables buttons when locked', () => {
+      render(
+         <HandToolbar
+            isSelection={false}
+            isLocked={true}
+            onKeepAllClick={mockOnKeepAllClick}
+            onReplaceClick={mockOnReplaceClick}
+         />
+      );
+
+      // Verify buttons are disabled
+      expect(screen.getByText('Keep all')).toBeDisabled();
+      expect(screen.getByText('Replace selected')).toBeDisabled();
+   });
+});
