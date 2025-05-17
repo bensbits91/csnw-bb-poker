@@ -4,25 +4,38 @@ import clsx from 'clsx';
 type CardProps = {
    card: string;
    isSelected: boolean;
-   onClick: () => void;
+   isHidden?: boolean;
    disabled?: boolean;
+   onClick: () => void;
 };
 
-export function Card({ card, isSelected, onClick, disabled = false }: CardProps) {
+export function Card({
+   card,
+   isSelected,
+   isHidden = false,
+   disabled = false,
+   onClick
+}: CardProps) {
    const cardColor = card[card.length - 1]; // Get the last character of the card string
    const isRed = cardColor === '♥' || cardColor === '♦';
    return (
-      <button
-         disabled={disabled}
-         type='button'
+      <div
          className={clsx(
-            'text-9xl transition-transform duration-300',
-            isRed ? 'text-red-300' : 'text-white',
-            isSelected ? '-translate-y-4 scale-110' : '',
-            disabled ? 'cursor-not-allowed' : 'cursor-pointer'
-         )}
-         onClick={onClick}>
-         {cardUnicodeMap[card] || card}
-      </button>
+            'relative h-[101px] w-[74px]', // to fit unicode characters neatly
+            'bg-black text-9xl transition-transform duration-300',
+            isHidden ? 'text-gray-500' : isRed ? 'text-red-300' : 'text-white',
+            isSelected && '-translate-y-4 scale-110'
+         )}>
+         <button
+            disabled={disabled}
+            type='button'
+            className={clsx(
+               'absolute bottom-[1px] right-[-8px]', // to fit unicode characters neatly
+               disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+            )}
+            onClick={onClick}>
+            {isHidden ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}
+         </button>
+      </div>
    );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { GameToolbar } from './GameToolbar';
 import { Hand } from '../hand';
 import {
    initializeDeck,
@@ -9,6 +10,7 @@ import {
 
 export function Game() {
    const [deck, setDeck] = useState(() => initializeDeck());
+   const [wasReset, setWasReset] = useState(false); // Track if the game was reset
 
    // todo: this fixes the issue of the deck be reinitialized when we replace cards
    // but feels messy/hacky so let's clean it up
@@ -58,23 +60,46 @@ export function Game() {
       setDeck(updatedDeck); // Update the deck
    };
 
+   const handleDealClick = () => {
+      const newDeck = initializeDeck();
+      const { dealtPlayers, updatedDeck } = shuffleAndDealCards(newDeck, 4); // Deal cards to 4 players
+      setDeck(updatedDeck); // Update the deck after dealing cards
+      setPlayers(dealtPlayers); // Update players' hands
+      setLockedHands([]); // Reset locked hands
+      setWinners(null); // Reset winners
+      setFinalHands([]); // Reset final hands
+      setWasReset(true); // Set the reset flag to inform Hand components
+   };
+
+   useEffect(() => {
+      if (wasReset) {
+         setWasReset(false); // Reset the flag after informing Hand components
+      }
+   }, [wasReset]);
+
+   const handleEndNowClick = () => {
+      setLockedHands([1, 2, 3, 4]);
+   };
+
    return (
       <div>
          <h1 className='text-center text-2xl font-bold'>CSNW Poker by Ben</h1>
          <h2 className='text-center text-xl font-semibold'>
             5-card single-draw no-betting good-wholesome-times fun
          </h2>
-         {winners && (
-            <div className='text-center text-2xl font-bold'>
-               Winner(s): {winners.join(', ')}
-            </div>
-         )}
-         <div className='players grid grid-cols-2 gap-8'>
+         <GameToolbar
+            isGameOver={!!winners}
+            onDealClick={handleDealClick}
+            onEndClick={handleEndNowClick}
+         />
+         <div className='players grid md:grid-cols-2 gap-8'>
             {players.map((hand, index) => (
                <Hand
                   key={index}
                   playerIndex={index}
                   hand={hand}
+                  isGameOver={!!winners}
+                  wasReset={wasReset}
                   finalHand={finalHands[index]} // Pass the final hand info
                   isWinner={winners?.includes(index) || false} // Check if this player is a winner
                   onReplaceCards={handleReplaceCards}

@@ -67,7 +67,7 @@ describe('rankHand', () => {
       expect(result).toEqual({
          name: 'Two Pair',
          rank: 3,
-         tiebreaker: [9, 10, 2] // todo: this is wrong, should be [10, 9, 2]
+         tiebreaker: [10, 9, 2]
       });
    });
 

@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '../card';
-import { Button } from '../common';
-import { LockIcon } from '../icons';
+import { HandHeader } from './HandHeader';
+import { HandToolbar } from './HandToolbar';
 
 type HandProps = {
    playerIndex: number;
    hand: string[];
+   wasReset?: boolean;
+   isGameOver?: boolean;
+   isWinner?: boolean;
    finalHand?: {
       name: string;
       rank: number;
       tiebreaker: number[];
    };
-   isWinner?: boolean;
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
    onLockHand: (playerIndex: number) => void; // New prop to notify when a hand is locked
 };
@@ -19,6 +21,8 @@ type HandProps = {
 export function Hand({
    playerIndex,
    hand,
+   wasReset = false,
+   isGameOver = false,
    finalHand,
    isWinner = false,
    onReplaceCards,
@@ -26,6 +30,7 @@ export function Hand({
 }: HandProps) {
    const [selectedCards, setSelectedCards] = useState<number[]>([]);
    const [isLocked, setIsLocked] = useState(false);
+   const [hiddenCards, setHiddenCards] = useState<number[]>([]);
 
    const toggleCardSelection = (index: number) => {
       setSelectedCards(prev =>
@@ -42,6 +47,7 @@ export function Hand({
    const handleReplace = () => {
       onReplaceCards(playerIndex, selectedCards);
       setSelectedCards([]);
+      setHiddenCards(prev => [...prev, ...selectedCards]);
       handleLock();
    };
 
@@ -55,40 +61,42 @@ export function Hand({
       toggleCardSelection(index);
    };
 
+   useEffect(() => {
+      if (wasReset) {
+         setHiddenCards([]);
+         setSelectedCards([]);
+         setIsLocked(false);
+      }
+   }, [wasReset]);
+
    const isSelection = selectedCards.length !== 0;
 
    return (
-      <div className='hand'>
-         <div className='flex justify-center items-center gap-2'>
-            Player {playerIndex + 1} <div className='w-4'>{isLocked && <LockIcon />}</div>
-         </div>
-         {finalHand && (
-            <>
-               {isWinner && (
-                  <div className='text-center text-lg font-semibold text-green-500'>
-                     Winner!
-                  </div>
-               )}
-               <div className='text-center text-lg font-semibold'>{finalHand.name}</div>
-            </>
-         )}
+      <div className='flex flex-col gap-4'>
+         <HandHeader
+            playerIndex={playerIndex}
+            isLocked={isLocked || isGameOver}
+            finalHand={finalHand}
+            isWinner={isWinner}
+         />
          <div className='flex gap-2 justify-center'>
             {hand.map((card, index) => (
                <Card
                   key={index}
                   card={card}
-                  disabled={isLocked}
+                  isHidden={hiddenCards.includes(index) && !finalHand}
+                  disabled={isLocked || isGameOver}
                   isSelected={selectedCards.includes(index)}
                   onClick={() => handleCardClick(index)}
                />
             ))}
          </div>
-         <Button onClick={handleKeepAll} disabled={isLocked}>
-            Keep All Cards
-         </Button>
-         <Button onClick={handleReplace} disabled={!isSelection || isLocked}>
-            Replace Selected Cards
-         </Button>
+         <HandToolbar
+            isSelection={isSelection}
+            isLocked={isLocked || isGameOver}
+            onKeepAllClick={handleKeepAll}
+            onReplaceClick={handleReplace}
+         />
       </div>
    );
 }
