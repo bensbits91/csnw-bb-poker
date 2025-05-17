@@ -17,10 +17,12 @@ export function HandToolbar({
    return (
       <Toolbar className='flex items-center justify-between bg-gray-800 p-4'>
          <Button asChild>
-            <OurButton onClick={onKeepAllClick}>Keep all</OurButton>
+            <OurButton iconName='LockIcon' onClick={onKeepAllClick} disabled={isLocked}>
+               Keep all
+            </OurButton>
          </Button>
          <Button asChild>
-            <OurButton onClick={onReplaceClick} disabled={!isSelection || isLocked}>
+            <OurButton iconName='UpdateIcon' onClick={onReplaceClick} disabled={!isSelection || isLocked}>
                Replace selected
             </OurButton>
          </Button>
