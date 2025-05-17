@@ -23,7 +23,7 @@ export function Card({
          className={clsx(
             'relative h-[101px] w-[74px] bg-black text-9xl transition-transform duration-300',
             isHidden ? 'text-gray-500' : isRed ? 'text-red-300' : 'text-white',
-            isSelected ? '-translate-y-4 scale-110' : ''
+            isSelected && '-translate-y-4 scale-110'
          )}>
          <button
             disabled={disabled}

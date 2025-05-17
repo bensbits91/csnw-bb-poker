@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '../card';
-import { Button } from '../common';
+import { HandToolbar } from './HandToolbar';
 import { LockIcon } from '../icons';
 
 type HandProps = {
    playerIndex: number;
    hand: string[];
+   wasReset?: boolean;
    finalHand?: {
       name: string;
       rank: number;
@@ -19,6 +20,7 @@ type HandProps = {
 export function Hand({
    playerIndex,
    hand,
+   wasReset = false,
    finalHand,
    isWinner = false,
    onReplaceCards,
@@ -57,6 +59,14 @@ export function Hand({
       toggleCardSelection(index);
    };
 
+   useEffect(() => {
+      if (wasReset) {
+         setHiddenCards([]);
+         setSelectedCards([]);
+         setIsLocked(false);
+      }
+   }, [wasReset]);
+
    const isSelection = selectedCards.length !== 0;
 
    return (
@@ -86,12 +96,12 @@ export function Hand({
                />
             ))}
          </div>
-         <Button onClick={handleKeepAll} disabled={isLocked}>
-            Keep All Cards
-         </Button>
-         <Button onClick={handleReplace} disabled={!isSelection || isLocked}>
-            Replace Selected Cards
-         </Button>
+         <HandToolbar
+            isSelection={isSelection}
+            isLocked={isLocked}
+            onKeepAllClick={handleKeepAll}
+            onReplaceClick={handleReplace}
+         />
       </div>
    );
 }
