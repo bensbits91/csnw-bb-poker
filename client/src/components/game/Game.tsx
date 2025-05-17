@@ -19,9 +19,15 @@ export function Game() {
    });
 
    const [lockedHands, setLockedHands] = useState<number[]>([]); // Track locked hands
-   console.log('bb ~ Game.tsx:18 ~ Game ~ lockedHands:', lockedHands);
 
-   const [winner, setWinner] = useState<number[] | null>(null);
+   const [winners, setWinners] = useState<number[] | null>(null);
+   const [finalHands, setFinalHands] = useState<
+      {
+         name: string;
+         rank: number;
+         tiebreaker: number[];
+      }[]
+   >([]);
 
    const handleLockHand = (playerIndex: number) => {
       setLockedHands(prev => {
@@ -31,12 +37,12 @@ export function Game() {
    };
 
    useEffect(() => {
-      // todo: is there a more elegant way to do this?
       if (lockedHands.length === players.length) {
          const { winners, rankedHands } = determineWinner(players);
          console.log('bb ~ Game.tsx:40 ~ useEffect ~ winners:', winners);
          console.log('bb ~ Game.tsx:39 ~ useEffect ~ rankedHands:', rankedHands);
-         setWinner(winners);
+         setWinners(winners);
+         setFinalHands(rankedHands);
       }
    }, [lockedHands, players.length, players]);
 
@@ -58,9 +64,9 @@ export function Game() {
          <h2 className='text-center text-xl font-semibold'>
             5-card single-draw no-betting good-wholesome-times fun
          </h2>
-         {winner && (
+         {winners && (
             <div className='text-center text-2xl font-bold'>
-               Winner(s): {winner.join(', ')}
+               Winner(s): {winners.join(', ')}
             </div>
          )}
          <div className='players grid grid-cols-2 gap-8'>
@@ -69,6 +75,8 @@ export function Game() {
                   key={index}
                   playerIndex={index}
                   hand={hand}
+                  finalHand={finalHands[index]} // Pass the final hand info
+                  isWinner={winners?.includes(index) || false} // Check if this player is a winner
                   onReplaceCards={handleReplaceCards}
                   onLockHand={handleLockHand} // Pass the callback to Hand
                />
