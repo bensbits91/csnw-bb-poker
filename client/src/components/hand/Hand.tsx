@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import { Card } from '../card';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
+import { useHand } from '@/hooks';
 
 type HandProps = {
    playerIndex: number;
@@ -28,48 +28,21 @@ export function Hand({
    onReplaceCards,
    onLockHand
 }: HandProps) {
-   const [selectedCards, setSelectedCards] = useState<number[]>([]);
-   const [isLocked, setIsLocked] = useState(false);
-   const [hiddenCards, setHiddenCards] = useState<number[]>([]);
-
-   const toggleCardSelection = (index: number) => {
-      setSelectedCards(prev =>
-         prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
-      );
-   };
-
-   const handleLock = () => {
-      setIsLocked(true);
-      setSelectedCards([]);
-      onLockHand(playerIndex); // Notify Game.tsx that this hand is locked
-   };
-
-   const handleReplace = () => {
-      onReplaceCards(playerIndex, selectedCards);
-      setSelectedCards([]);
-      setHiddenCards(prev => [...prev, ...selectedCards]);
-      handleLock();
-   };
-
-   const handleKeepAll = () => {
-      setSelectedCards([]);
-      handleLock();
-   };
-
-   const handleCardClick = (index: number) => {
-      setIsLocked(false);
-      toggleCardSelection(index);
-   };
-
-   useEffect(() => {
-      if (wasReset) {
-         setHiddenCards([]);
-         setSelectedCards([]);
-         setIsLocked(false);
-      }
-   }, [wasReset]);
-
-   const isSelection = selectedCards.length !== 0;
+   const {
+      selectedCards,
+      isLocked,
+      hiddenCards,
+      isSelection,
+      handleCardClick,
+      handleReplace,
+      handleKeepAll
+      // handleLock
+   } = useHand({
+      playerIndex,
+      wasReset,
+      onReplaceCards,
+      onLockHand
+   });
 
    return (
       <div className='flex flex-col gap-4'>

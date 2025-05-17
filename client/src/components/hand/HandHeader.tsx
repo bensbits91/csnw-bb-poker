@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Icon } from '../icons';
 
 interface HandHeaderProps {
@@ -20,7 +21,11 @@ export function HandHeader({
    isWinner = false
 }: HandHeaderProps) {
    return (
-      <div className='flex justify-between items-end gap-2 h-16'>
+      <div
+         className={clsx(
+            'flex justify-between items-end gap-2 h-16',
+            isWinner && 'text-green-500'
+         )}>
          <div className='flex items-end gap-2'>
             <Icon name='PersonIcon' size={6} />
             {playerName || `Player ${playerIndex + 1}`}
@@ -31,7 +36,7 @@ export function HandHeader({
             )}
             {isLocked && !finalHand && <Icon name='LockIcon' size={4} />}
             {isWinner && (
-               <div className='text-green-500'>
+               <div data-testid='winner-indicator'>
                   <Icon name='WinnerIcon' size={12} />
                </div>
             )}
