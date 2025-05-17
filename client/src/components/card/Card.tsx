@@ -21,7 +21,8 @@ export function Card({
    return (
       <div
          className={clsx(
-            'relative h-[101px] w-[74px] bg-black text-9xl transition-transform duration-300',
+            'relative h-[101px] w-[74px]', // to fit unicode characters neatly
+            'bg-black text-9xl transition-transform duration-300',
             isHidden ? 'text-gray-500' : isRed ? 'text-red-300' : 'text-white',
             isSelected && '-translate-y-4 scale-110'
          )}>
@@ -29,7 +30,7 @@ export function Card({
             disabled={disabled}
             type='button'
             className={clsx(
-               'absolute bottom-[1px] right-[-8px]',
+               'absolute bottom-[1px] right-[-8px]', // to fit unicode characters neatly
                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
             )}
             onClick={onClick}>
