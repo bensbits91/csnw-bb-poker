@@ -4,11 +4,18 @@ import clsx from 'clsx';
 type CardProps = {
    card: string;
    isSelected: boolean;
-   onClick: () => void;
+   isHidden?: boolean;
    disabled?: boolean;
+   onClick: () => void;
 };
 
-export function Card({ card, isSelected, onClick, disabled = false }: CardProps) {
+export function Card({
+   card,
+   isSelected,
+   isHidden = false,
+   disabled = false,
+   onClick
+}: CardProps) {
    const cardColor = card[card.length - 1]; // Get the last character of the card string
    const isRed = cardColor === '♥' || cardColor === '♦';
    return (
@@ -17,12 +24,12 @@ export function Card({ card, isSelected, onClick, disabled = false }: CardProps)
          type='button'
          className={clsx(
             'text-9xl transition-transform duration-300',
-            isRed ? 'text-red-300' : 'text-white',
+            isHidden ? 'text-gray-500' : isRed ? 'text-red-300' : 'text-white',
             isSelected ? '-translate-y-4 scale-110' : '',
             disabled ? 'cursor-not-allowed' : 'cursor-pointer'
          )}
          onClick={onClick}>
-         {cardUnicodeMap[card] || card}
+         {isHidden ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}
       </button>
    );
 }

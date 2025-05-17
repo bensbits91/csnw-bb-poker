@@ -26,6 +26,7 @@ export function Hand({
 }: HandProps) {
    const [selectedCards, setSelectedCards] = useState<number[]>([]);
    const [isLocked, setIsLocked] = useState(false);
+   const [hiddenCards, setHiddenCards] = useState<number[]>([]);
 
    const toggleCardSelection = (index: number) => {
       setSelectedCards(prev =>
@@ -42,6 +43,7 @@ export function Hand({
    const handleReplace = () => {
       onReplaceCards(playerIndex, selectedCards);
       setSelectedCards([]);
+      setHiddenCards(prev => [...prev, ...selectedCards]);
       handleLock();
    };
 
@@ -77,6 +79,7 @@ export function Hand({
                <Card
                   key={index}
                   card={card}
+                  isHidden={hiddenCards.includes(index) && !finalHand}
                   disabled={isLocked}
                   isSelected={selectedCards.includes(index)}
                   onClick={() => handleCardClick(index)}
