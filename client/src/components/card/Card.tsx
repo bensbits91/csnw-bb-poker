@@ -1,4 +1,4 @@
-import { unicodeMap } from '@/utils/card';
+import { cardUnicodeMap } from '@/constants/card';
 import clsx from 'clsx';
 
 type CardProps = {
@@ -22,7 +22,7 @@ export function Card({ card, isSelected, onClick, disabled = false }: CardProps)
             disabled ? 'cursor-not-allowed' : 'cursor-pointer'
          )}
          onClick={onClick}>
-         {unicodeMap[card] || card}
+         {cardUnicodeMap[card] || card}
       </button>
    );
 }

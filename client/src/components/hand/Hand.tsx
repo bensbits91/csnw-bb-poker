@@ -6,11 +6,24 @@ import { LockIcon } from '../icons';
 type HandProps = {
    playerIndex: number;
    hand: string[];
+   finalHand?: {
+      name: string;
+      rank: number;
+      tiebreaker: number[];
+   };
+   isWinner?: boolean;
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
    onLockHand: (playerIndex: number) => void; // New prop to notify when a hand is locked
 };
 
-export function Hand({ playerIndex, hand, onReplaceCards, onLockHand }: HandProps) {
+export function Hand({
+   playerIndex,
+   hand,
+   finalHand,
+   isWinner = false,
+   onReplaceCards,
+   onLockHand
+}: HandProps) {
    const [selectedCards, setSelectedCards] = useState<number[]>([]);
    const [isLocked, setIsLocked] = useState(false);
 
@@ -49,6 +62,16 @@ export function Hand({ playerIndex, hand, onReplaceCards, onLockHand }: HandProp
          <div className='flex justify-center items-center gap-2'>
             Player {playerIndex + 1} <div className='w-4'>{isLocked && <LockIcon />}</div>
          </div>
+         {finalHand && (
+            <>
+               {isWinner && (
+                  <div className='text-center text-lg font-semibold text-green-500'>
+                     Winner!
+                  </div>
+               )}
+               <div className='text-center text-lg font-semibold'>{finalHand.name}</div>
+            </>
+         )}
          <div className='flex gap-2 justify-center'>
             {hand.map((card, index) => (
                <Card
