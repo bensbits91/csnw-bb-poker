@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Hand } from '../hand';
-import { initializeDeck, shuffleAndDealCards, replaceCards } from '@/utils/card';
-import { determineWinner } from '@/utils/game/determineWinner';
+import {
+   initializeDeck,
+   shuffleAndDealCards,
+   replaceCards,
+   determineWinner
+} from '@/utils/game';
 
 export function Game() {
    const [deck, setDeck] = useState(() => initializeDeck());

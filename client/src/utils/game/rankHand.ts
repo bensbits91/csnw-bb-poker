@@ -117,9 +117,9 @@ export function rankHand(hand: string[]): {
          .find(rank => rankCount[rank] === 2 && rank !== pairRank);
       if (secondPairRank !== undefined) {
          const name = 'Two Pair';
-         const remainingCards = rankValues.filter(
-            val => val !== pairRank && val !== secondPairRank
-         );
+         const remainingCards = rankValues
+            .filter(val => val !== pairRank && val !== secondPairRank)
+            .sort((a, b) => b - a); // todo: this is wrong, in unit test, it should be [10, 9, 2] but is [9, 10, 2]
          return {
             rank: HAND_RANKINGS[name],
             name,

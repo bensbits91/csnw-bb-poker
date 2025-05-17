@@ -1,4 +1,4 @@
-import { rankHand } from '@/utils/hand/rankHand';
+import { rankHand } from '@/utils/game';
 
 interface determineWinnerResult {
    winners: number[];
