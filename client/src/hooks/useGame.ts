@@ -39,8 +39,6 @@ export const useGame = () => {
    useEffect(() => {
       if (lockedHands.length === players.length) {
          const { winners, rankedHands } = determineWinner(players);
-         console.log('bb ~ Game.tsx:40 ~ useEffect ~ winners:', winners);
-         console.log('bb ~ Game.tsx:39 ~ useEffect ~ rankedHands:', rankedHands);
          setWinners(winners);
          setFinalHands(rankedHands);
       }
