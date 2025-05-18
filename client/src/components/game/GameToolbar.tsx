@@ -1,6 +1,7 @@
-import { Toolbar, Button, ToggleGroup, ToggleItem } from '@radix-ui/react-toolbar';
+import { Toolbar, Button } from '@radix-ui/react-toolbar';
 import clsx from 'clsx';
 import { Icon } from '@/components/icons';
+import { useTheme } from '@/hooks/';
 
 interface GameToolbarProps {
    isGameOver?: boolean;
@@ -9,13 +10,20 @@ interface GameToolbarProps {
 }
 
 export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbarProps) {
+   const { theme, toggleTheme } = useTheme();
+   const isDarkMode = theme === 'dark';
+
    return (
-      <Toolbar className='flex items-center justify-between bg-gray-800 p-4'>
+      <Toolbar
+         className={clsx(
+            'flex items-center justify-between p-4 rounded-lg',
+            isDarkMode ? 'bg-elevated-dark-1 link-dark' : 'bg-elevated-1 link'
+         )}>
          <div className='flex items-center gap-2'>
             <Button
                onClick={onDealClick}
-               className='flex items-center gap-2 md:cursor-pointer text-teal-500 md:hover:text-teal-600'>
-               <Icon name='ReloadIcon' size={4} />
+               className='flex items-center gap-2 md:cursor-pointer hover-bright'>
+               <Icon name='ReloadIcon' />
                <div>New deal</div>
             </Button>
             <Button
@@ -23,25 +31,22 @@ export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbar
                onClick={onEndClick}
                className={clsx(
                   'flex items-center gap-2',
-                  !isGameOver && 'md:cursor-pointer text-teal-500 md:hover:text-teal-600',
-                  isGameOver && 'md:cursor-not-allowed text-gray-500'
+                  isGameOver
+                     ? 'md:cursor-not-allowed disabled-text'
+                     : 'md:cursor-pointer hover-bright'
                )}>
-               <Icon name='SkipIcon' size={4} />
+               <Icon name='SkipIcon' />
                <div>Skip to winner</div>
             </Button>
          </div>
-         <ToggleGroup type='single' defaultValue='light'>
-            <ToggleItem
-               value='light'
-               className='text-teal-500 md:hover:text-teal-600 cursor-pointer'>
-               <Icon name='SunIcon' />
-            </ToggleItem>
-            <ToggleItem
-               value='dark'
-               className='text-teal-500 md:hover:text-teal-600 cursor-pointer'>
-               <Icon name='MoonIcon' />
-            </ToggleItem>
-         </ToggleGroup>
+         <Button
+            onClick={() => {
+               toggleTheme();
+            }}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            className='cursor-pointer hover-bright'>
+            <Icon name={theme === 'dark' ? 'SunIcon' : 'MoonIcon'} />
+         </Button>
       </Toolbar>
    );
 }

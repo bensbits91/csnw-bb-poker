@@ -15,7 +15,7 @@ export function HandToolbar({
    onReplaceClick
 }: HandToolbarProps) {
    return (
-      <Toolbar className='flex items-center justify-between bg-gray-800 p-4'>
+      <Toolbar className='flex items-center gap-4'>
          <Button asChild>
             <OurButton iconName='LockIcon' onClick={onKeepAllClick} disabled={isLocked}>
                Keep all

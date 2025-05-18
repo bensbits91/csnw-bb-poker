@@ -36,7 +36,6 @@ export function Hand({
       handleCardClick,
       handleReplace,
       handleKeepAll
-      // handleLock
    } = useHand({
       playerIndex,
       wasReset,
@@ -52,7 +51,7 @@ export function Hand({
             finalHand={finalHand}
             isWinner={isWinner}
          />
-         <div className='flex gap-2 justify-center'>
+         <div className='flex md:justify-between'>
             {hand.map((card, index) => (
                <Card
                   key={index}
