@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { Heading } from '@/components/typography';
 import { Icon } from '@/components/icons';
 import { useTheme } from '@/hooks/';
 interface HandHeaderProps {
@@ -32,7 +33,7 @@ export function HandHeader({
          )}>
          <div className='flex items-end gap-2'>
             <Icon name={`Player${playerIndex + 1}Icon`} size={8} />
-            <h3 className='text-3xl'>{playerName || `Player ${playerIndex + 1}`}</h3>
+            <Heading level={3}>{playerName || `Player ${playerIndex + 1}`}</Heading>
          </div>
          <div className='flex items-end gap-2'>
             {finalHand && <div className='text-center text-3xl'>{finalHand.name}</div>}

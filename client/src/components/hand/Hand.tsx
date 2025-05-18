@@ -55,7 +55,7 @@ export function Hand({
    return (
       <div
          className={clsx(
-            'relative flex flex-col gap-4 p-6 rounded-lg border-2 shadow-md',
+            'relative flex flex-col gap-4 p-2 md:p-6 rounded-lg border-2 shadow-md',
             isDarkMode ? 'bg-elevated-dark-1 shadow-dark-1' : 'bg-elevated-1 shadow-1',
             isWinner ? winnerBorderClass : 'border-transparent'
          )}>
@@ -65,7 +65,7 @@ export function Hand({
             finalHand={finalHand}
             isWinner={isWinner}
          />
-         <div className='flex md:justify-between w-[80%] mx-auto'>
+         <div className='flex justify-between w-full xl:w-[80%] mx-auto'>
             {hand.map((card, index) => (
                <Card
                   key={index}
@@ -86,7 +86,7 @@ export function Hand({
          {isWinner && (
             <div
                data-testid='winner-indicator'
-               className='absolute right-0 -bottom-5 z-10'>
+               className='absolute -right-8 -bottom-15 z-10'>
                <WinnerAnimation />
             </div>
          )}

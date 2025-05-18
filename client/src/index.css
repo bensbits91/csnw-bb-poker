@@ -37,7 +37,7 @@
 
 #root {
    width: 100vw;
-   height: 100vh;
+   min-height: 100vh;
 }
 
 .bg-elevated-1 {
@@ -112,9 +112,4 @@ body {
    place-items: center;
    min-width: 320px;
    min-height: 100vh;
-}
-
-h1 {
-   font-size: 3.2em;
-   line-height: 1.1;
 }
