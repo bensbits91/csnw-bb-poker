@@ -15,10 +15,10 @@ export function Game() {
    } = useGame();
 
    return (
-      <div>
-         <h1 className='text-center text-2xl font-bold'>CSNW Poker by Ben</h1>
-         <h2 className='text-center text-xl font-semibold'>
-            5-card single-draw no-betting good-wholesome-times fun
+      <div className='flex flex-col gap-8'>
+         <h1 className='text-center text-2xl'>CSNW Poker by Ben</h1>
+         <h2 className='text-center text-xl'>
+            5-card single-draw no-betting good-wholesome fun
          </h2>
          <GameToolbar
             isGameOver={!!winners}

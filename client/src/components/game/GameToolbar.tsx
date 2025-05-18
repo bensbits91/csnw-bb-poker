@@ -16,10 +16,12 @@ export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbar
    return (
       <Toolbar
          className={clsx(
-            'flex items-center justify-between p-4 rounded-lg',
-            isDarkMode ? 'bg-elevated-dark-1 link-dark' : 'bg-elevated-1 link'
+            'flex items-center justify-between px-8 py-4 rounded-lg',
+            isDarkMode
+               ? 'bg-elevated-dark-1 shadow-dark-1 link-dark'
+               : 'bg-elevated-1 shadow-1 link'
          )}>
-         <div className='flex items-center gap-2'>
+         <div className='flex items-center gap-6'>
             <Button
                onClick={onDealClick}
                className='flex items-center gap-2 md:cursor-pointer hover-bright'>

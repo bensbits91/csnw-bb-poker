@@ -23,21 +23,21 @@ export function HandHeader({
    return (
       <div
          className={clsx(
-            'flex justify-between items-end gap-2 h-16',
-            isWinner && 'text-green-500'
+            'relative flex justify-between items-end gap-2',
+            // isWinner && 'text-green-500'
          )}>
          <div className='flex items-end gap-2'>
-            <Icon name='PersonIcon' size={6} />
-            {playerName || `Player ${playerIndex + 1}`}
+            <Icon name={`Player${playerIndex + 1}Icon`} size={8} />
+            <h3 className='text-3xl'>{playerName || `Player ${playerIndex + 1}`}</h3>
          </div>
          <div className='flex items-end gap-2'>
             {finalHand && (
-               <div className='text-center text-lg font-semibold'>{finalHand.name}</div>
+               <div className='text-center text-3xl'>{finalHand.name}</div>
             )}
             {isLocked && !finalHand && <Icon name='LockIcon' size={4} />}
             {isWinner && (
-               <div data-testid='winner-indicator'>
-                  <Icon name='WinnerIcon' size={12} />
+               <div data-testid='winner-indicator' className='absolute -top-20 -right-20'>
+                  <Icon name='WinnerIcon' size={20} />
                </div>
             )}
          </div>

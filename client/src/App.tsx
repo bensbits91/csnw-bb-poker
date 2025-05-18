@@ -9,7 +9,7 @@ function App() {
       ? 'bg-[var(--csnw-gray-dark-50)] text-white'
       : 'bg-white text-gray-900';
    return (
-      <section className={clsx('w-full h-screen flex place-items-center', appClass)}>
+      <section className={clsx('w-full h-screen flex md:place-items-center', appClass)}>
          <div className='container mx-auto'>
             <Game />
          </div>

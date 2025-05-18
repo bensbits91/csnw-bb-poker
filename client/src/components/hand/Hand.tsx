@@ -1,7 +1,11 @@
+import clsx from 'clsx';
 import { Card } from '../card';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
 import { useHand } from '@/hooks';
+import { useTheme } from '@/hooks/';
+
+// TODO: Separate player and hand components?
 
 type HandProps = {
    playerIndex: number;
@@ -15,7 +19,7 @@ type HandProps = {
       tiebreaker: number[];
    };
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
-   onLockHand: (playerIndex: number) => void; // New prop to notify when a hand is locked
+   onLockHand: (playerIndex: number) => void;
 };
 
 export function Hand({
@@ -43,15 +47,23 @@ export function Hand({
       onLockHand
    });
 
+   const { theme } = useTheme();
+   const isDarkMode = theme === 'dark';
+
    return (
-      <div className='flex flex-col gap-4'>
+      <div
+         className={clsx(
+            'flex flex-col gap-4 p-6 rounded-lg border-2 shadow-md',
+            isDarkMode ? 'bg-elevated-dark-1 shadow-dark-1' : 'bg-elevated-1 shadow-1',
+            isWinner ? 'border-green-500' : 'border-transparent',
+         )}>
          <HandHeader
             playerIndex={playerIndex}
             isLocked={isLocked || isGameOver}
             finalHand={finalHand}
             isWinner={isWinner}
          />
-         <div className='flex md:justify-between'>
+         <div className='flex md:justify-between w-[80%] mx-auto'>
             {hand.map((card, index) => (
                <Card
                   key={index}

@@ -13,8 +13,14 @@
    --csnw-gray: #575555;
    --csnw-gray-dark-50: color-mix(in srgb, var(--csnw-gray), #000 50%);
    --csnw-gray-dark-30: color-mix(in srgb, var(--csnw-gray), #000 30%);
+   --csnw-gray-dark-20: color-mix(in srgb, var(--csnw-gray), #000 20%);
+   --csnw-gray-dark-10: color-mix(in srgb, var(--csnw-gray), #000 10%);
+   --csnw-gray-light-10: color-mix(in srgb, var(--csnw-gray), #fff 10%);
+   --csnw-gray-light-20: color-mix(in srgb, var(--csnw-gray), #fff 20%);
    --csnw-gray-light-30: color-mix(in srgb, var(--csnw-gray), #fff 30%);
+   --csnw-gray-light-50: color-mix(in srgb, var(--csnw-gray), #fff 50%);
    --csnw-gray-light-70: color-mix(in srgb, var(--csnw-gray), #fff 70%);
+   --csnw-gray-light-80: color-mix(in srgb, var(--csnw-gray), #fff 80%);
 
    --csnw-text: dimgray;
 
@@ -23,6 +29,10 @@
    --csnw-red-light-30: color-mix(in srgb, var(--csnw-red), #fff 30%);
 
    --csnw-teal: #27dddd;
+   --csnw-teal-dark-30: color-mix(in srgb, var(--csnw-teal), #000 30%);
+   --csnw-teal-dark-50: color-mix(in srgb, var(--csnw-teal), #000 50%);
+
+   --disabled-text: var(--csnw-gray-light-30);
 }
 
 #root {
@@ -31,36 +41,53 @@
 }
 
 .bg-elevated-1 {
-   @apply bg-[var(--csnw-gray-light-70)];
+   @apply bg-gray-100;
+   /* @apply bg-[var(--csnw-gray-light-80)]; */
 }
 .bg-elevated-dark-1 {
    @apply bg-[var(--csnw-gray-dark-30)];
 }
 
-.hover-delay {
-   /* TODO: handle user prefers reduced motion */
-   @apply md:transition-all md:duration-300 md:ease-in-out;
+.shadow-1 {
+   @apply shadow-lg;
+}
+.shadow-dark-1 {
+   @apply shadow-black;
 }
 
+/* TODO: handle user prefers reduced motion */
 .hover-bright {
-   @apply md:hover:brightness-110;
+   @apply md:hover:brightness-110 md:transition-all md:duration-300 md:ease-in-out;
 }
 .hover-scale {
-   @apply md:hover:scale-105;
+   @apply md:hover:scale-105 md:transition-all md:duration-300 md:ease-in-out;
 }
 
 .link {
-   @apply text-[var(--csnw-red-light-30)];
+   @apply text-[var(--csnw-teal-dark-50)];
 }
 .link-dark {
    @apply text-[var(--csnw-teal)];
 }
 
 .disabled-text {
-   @apply text-[var(--csnw-gray-light-30)];
+   @apply text-[var(--disabled-text)];
 }
 .disabled-text-dark {
-   @apply text-[var(--csnw-gray-light-30)];
+   @apply text-[var(--disabled-text)];
+}
+
+.button {
+   @apply bg-[var(--csnw-teal-dark-30)] text-white;
+}
+.button-dark {
+   @apply bg-[var(--csnw-teal)] text-black;
+}
+.disabled-button {
+   @apply bg-[var(--disabled-text)] text-[var(--csnw-gray-light-80)];
+}
+.disabled-button-dark {
+   @apply bg-[var(--disabled-text)] text-[var(--csnw-gray-dark-10)];
 }
 
 a {
