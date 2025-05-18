@@ -1,5 +1,5 @@
+import { Hand } from '@/components/hand';
 import { GameToolbar } from './GameToolbar';
-import { Hand } from '../hand';
 import { useGame } from '@/hooks';
 
 export function Game() {
@@ -21,18 +21,20 @@ export function Game() {
             onDealClick={handleDealClick}
             onEndClick={handleEndNowClick}
          />
+         {/* Table */}
          <div className="grid gap-8 md:grid-cols-2">
             {players.map((hand, index) => (
+               /* Player */
                <Hand
                   key={index}
                   playerIndex={index}
                   hand={hand}
                   isGameOver={!!winners}
                   wasReset={wasReset}
-                  finalHand={finalHands[index]} // Pass the final hand info
-                  isWinner={winners?.includes(index) || false} // Check if this player is a winner
+                  finalHand={finalHands[index]}
+                  isWinner={winners?.includes(index) || false}
                   onReplaceCards={handleReplaceCards}
-                  onLockHand={handleLockHand} // Pass the callback to Hand
+                  onLockHand={handleLockHand}
                />
             ))}
          </div>

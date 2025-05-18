@@ -1,5 +1,5 @@
 import { Toolbar, Button } from '@radix-ui/react-toolbar';
-import { Button as OurButton } from '../common';
+import { Button as OurButton } from '@/components/common';
 
 interface HandToolbarProps {
    isSelection?: boolean;

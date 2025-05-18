@@ -1,12 +1,9 @@
 import clsx from 'clsx';
-import { Card } from '../card';
+import { Card } from '@/components/card';
+import { WinnerAnimation } from '@/components/animation';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
-import { WinnerAnimation } from '@/components/animation';
-import { useHand } from '@/hooks';
-import { useTheme } from '@/hooks/';
-
-// TODO: Separate player and hand components?
+import { useHand, useTheme } from '@/hooks/';
 
 type HandProps = {
    playerIndex: number;
@@ -67,6 +64,7 @@ export function Hand({
             finalHand={finalHand}
             isWinner={isWinner}
          />
+         {/* Hand */}
          <div className="mx-auto flex w-full justify-between xl:w-[80%]">
             {hand.map((card, index) => (
                <Card
