@@ -20,7 +20,9 @@ export function determineWinner(players: string[][]): determineWinnerResult {
    const highestRank = Math.max(...rankedHands.map(hand => hand.rank));
 
    // Filter players with the highest rank
-   const potentialWinners = rankedHands.filter(hand => hand.rank === highestRank);
+   const potentialWinners = rankedHands.filter(
+      hand => hand.rank === highestRank
+   );
 
    // Break ties using tiebreaker
    potentialWinners.sort((a, b) => {

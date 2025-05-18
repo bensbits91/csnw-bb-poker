@@ -1,7 +1,9 @@
-import { Card } from '../card';
+import clsx from 'clsx';
+import { Card } from '@/components/card';
+import { WinnerAnimation } from '@/components/animation';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
-import { useHand } from '@/hooks';
+import { useHand, useTheme } from '@/hooks/';
 
 type HandProps = {
    playerIndex: number;
@@ -15,7 +17,7 @@ type HandProps = {
       tiebreaker: number[];
    };
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
-   onLockHand: (playerIndex: number) => void; // New prop to notify when a hand is locked
+   onLockHand: (playerIndex: number) => void;
 };
 
 export function Hand({
@@ -36,7 +38,6 @@ export function Hand({
       handleCardClick,
       handleReplace,
       handleKeepAll
-      // handleLock
    } = useHand({
       playerIndex,
       wasReset,
@@ -44,15 +45,27 @@ export function Hand({
       onLockHand
    });
 
+   const { theme } = useTheme();
+   const isDarkMode = theme === 'dark';
+   const winnerBorderClass = isDarkMode ? 'border-teal-dark' : 'border-teal';
+
    return (
-      <div className='flex flex-col gap-4'>
+      <div
+         className={clsx(
+            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md md:p-6',
+            isDarkMode
+               ? 'bg-elevated-dark-1 shadow-dark-1'
+               : 'bg-elevated-1 shadow-1',
+            isWinner ? winnerBorderClass : 'border-transparent'
+         )}>
          <HandHeader
             playerIndex={playerIndex}
             isLocked={isLocked || isGameOver}
             finalHand={finalHand}
             isWinner={isWinner}
          />
-         <div className='flex gap-2 justify-center'>
+         {/* Hand */}
+         <div className="mx-auto flex w-full justify-between xl:w-[80%]">
             {hand.map((card, index) => (
                <Card
                   key={index}
@@ -70,6 +83,13 @@ export function Hand({
             onKeepAllClick={handleKeepAll}
             onReplaceClick={handleReplace}
          />
+         {isWinner && (
+            <div
+               data-testid="winner-indicator"
+               className="absolute -right-8 -bottom-15 z-10">
+               <WinnerAnimation />
+            </div>
+         )}
       </div>
    );
 }

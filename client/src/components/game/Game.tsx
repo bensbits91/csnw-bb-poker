@@ -1,5 +1,5 @@
+import { Hand } from '@/components/hand';
 import { GameToolbar } from './GameToolbar';
-import { Hand } from '../hand';
 import { useGame } from '@/hooks';
 
 export function Game() {
@@ -15,31 +15,29 @@ export function Game() {
    } = useGame();
 
    return (
-      <div>
-         <h1 className='text-center text-2xl font-bold'>CSNW Poker by Ben</h1>
-         <h2 className='text-center text-xl font-semibold'>
-            5-card single-draw no-betting good-wholesome-times fun
-         </h2>
+      <>
          <GameToolbar
             isGameOver={!!winners}
             onDealClick={handleDealClick}
             onEndClick={handleEndNowClick}
          />
-         <div className='players grid md:grid-cols-2 gap-8'>
+         {/* Table */}
+         <div className="grid gap-8 md:grid-cols-2">
             {players.map((hand, index) => (
+               /* Player */
                <Hand
                   key={index}
                   playerIndex={index}
                   hand={hand}
                   isGameOver={!!winners}
                   wasReset={wasReset}
-                  finalHand={finalHands[index]} // Pass the final hand info
-                  isWinner={winners?.includes(index) || false} // Check if this player is a winner
+                  finalHand={finalHands[index]}
+                  isWinner={winners?.includes(index) || false}
                   onReplaceCards={handleReplaceCards}
-                  onLockHand={handleLockHand} // Pass the callback to Hand
+                  onLockHand={handleLockHand}
                />
             ))}
          </div>
-      </div>
+      </>
    );
 }
