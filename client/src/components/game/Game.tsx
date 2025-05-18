@@ -16,10 +16,12 @@ export function Game() {
 
    return (
       <div className='flex flex-col gap-8'>
-         <h1 className='text-center text-2xl'>CSNW Poker by Ben</h1>
-         <h2 className='text-center text-xl'>
-            5-card single-draw no-betting good-wholesome fun
-         </h2>
+         <div>
+            <h1 className='text-center text-2xl'>CSNW Poker by Ben</h1>
+            <h2 className='text-center text-xl'>
+               5-card single-draw no-betting good-wholesome fun
+            </h2>
+         </div>
          <GameToolbar
             isGameOver={!!winners}
             onDealClick={handleDealClick}

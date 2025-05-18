@@ -18,8 +18,8 @@ export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbar
          className={clsx(
             'flex items-center justify-between px-8 py-4 rounded-lg',
             isDarkMode
-               ? 'bg-elevated-dark-1 shadow-dark-1 link-dark'
-               : 'bg-elevated-1 shadow-1 link'
+               ? 'bg-elevated-dark-1 shadow-dark-1 text-teal-dark'
+               : 'bg-elevated-1 shadow-1 text-teal'
          )}>
          <div className='flex items-center gap-6'>
             <Button

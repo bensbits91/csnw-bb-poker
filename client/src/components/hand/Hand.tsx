@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { Card } from '../card';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
+import { WinnerAnimation } from '@/components/animation';
 import { useHand } from '@/hooks';
 import { useTheme } from '@/hooks/';
 
@@ -49,13 +50,14 @@ export function Hand({
 
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
+   const winnerBorderClass = isDarkMode ? 'border-teal-dark' : 'border-teal';
 
    return (
       <div
          className={clsx(
-            'flex flex-col gap-4 p-6 rounded-lg border-2 shadow-md',
+            'relative flex flex-col gap-4 p-6 rounded-lg border-2 shadow-md',
             isDarkMode ? 'bg-elevated-dark-1 shadow-dark-1' : 'bg-elevated-1 shadow-1',
-            isWinner ? 'border-green-500' : 'border-transparent',
+            isWinner ? winnerBorderClass : 'border-transparent'
          )}>
          <HandHeader
             playerIndex={playerIndex}
@@ -81,6 +83,13 @@ export function Hand({
             onKeepAllClick={handleKeepAll}
             onReplaceClick={handleReplace}
          />
+         {isWinner && (
+            <div
+               data-testid='winner-indicator'
+               className='absolute right-0 -bottom-5 z-10'>
+               <WinnerAnimation />
+            </div>
+         )}
       </div>
    );
 }

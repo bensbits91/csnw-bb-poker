@@ -63,11 +63,18 @@
    @apply md:hover:scale-105 md:transition-all md:duration-300 md:ease-in-out;
 }
 
-.link {
+.text-teal {
    @apply text-[var(--csnw-teal-dark-50)];
 }
-.link-dark {
+.text-teal-dark {
    @apply text-[var(--csnw-teal)];
+}
+
+.border-teal {
+   @apply border-[var(--csnw-teal-dark-50)];
+}
+.border-teal-dark {
+   @apply border-[var(--csnw-teal)];
 }
 
 .disabled-text {
