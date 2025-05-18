@@ -21,7 +21,7 @@ export function Game() {
             onDealClick={handleDealClick}
             onEndClick={handleEndNowClick}
          />
-         <div className='players grid md:grid-cols-2 gap-8'>
+         <div className="grid gap-8 md:grid-cols-2">
             {players.map((hand, index) => (
                <Hand
                   key={index}

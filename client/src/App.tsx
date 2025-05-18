@@ -12,12 +12,15 @@ function App() {
 
    return (
       <section
-         className={clsx('overflow-x-hidden w-full min-h-screen pb-15 pt-6 md:pt-12 px-2 md:px-12', appClass)}>
-         <div className='container max-w-[1280px] mx-auto'>
-            <div className='flex flex-col gap-8'>
+         className={clsx(
+            'min-h-screen w-full overflow-x-hidden px-2 pt-6 pb-15 md:px-12 md:pt-12',
+            appClass
+         )}>
+         <div className="container mx-auto max-w-[1280px]">
+            <div className="flex flex-col gap-8">
                <div>
-                  <Heading className='text-center'>CSNW Poker by Ben</Heading>
-                  <Heading level={2} appearance={3} className='text-center'>
+                  <Heading className="text-center">CSNW Poker by Ben</Heading>
+                  <Heading level={2} appearance={3} className="text-center">
                      5-card single-draw no-betting good-wholesome fun
                   </Heading>
                </div>

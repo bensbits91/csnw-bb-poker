@@ -57,10 +57,10 @@
 
 /* TODO: handle user prefers reduced motion */
 .hover-bright {
-   @apply md:hover:brightness-110 md:transition-all md:duration-300 md:ease-in-out;
+   @apply md:transition-all md:duration-300 md:ease-in-out md:hover:brightness-110;
 }
 .hover-scale {
-   @apply md:hover:scale-105 md:transition-all md:duration-300 md:ease-in-out;
+   @apply md:transition-all md:duration-300 md:ease-in-out md:hover:scale-105;
 }
 
 .text-teal {

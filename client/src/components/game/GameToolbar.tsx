@@ -9,23 +9,27 @@ interface GameToolbarProps {
    onEndClick: () => void;
 }
 
-export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbarProps) {
+export function GameToolbar({
+   onDealClick,
+   onEndClick,
+   isGameOver
+}: GameToolbarProps) {
    const { theme, toggleTheme } = useTheme();
    const isDarkMode = theme === 'dark';
 
    return (
       <Toolbar
          className={clsx(
-            'flex items-center justify-between px-8 py-4 rounded-lg',
+            'flex items-center justify-between rounded-lg px-8 py-4',
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1 text-teal-dark'
                : 'bg-elevated-1 shadow-1 text-teal'
          )}>
-         <div className='flex items-center gap-6'>
+         <div className="flex items-center gap-6">
             <Button
                onClick={onDealClick}
-               className='flex items-center gap-2 md:cursor-pointer hover-bright'>
-               <Icon name='ReloadIcon' />
+               className="hover-bright flex items-center gap-2 md:cursor-pointer">
+               <Icon name="ReloadIcon" />
                <div>New deal</div>
             </Button>
             <Button
@@ -34,10 +38,10 @@ export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbar
                className={clsx(
                   'flex items-center gap-2',
                   isGameOver
-                     ? 'md:cursor-not-allowed disabled-text'
-                     : 'md:cursor-pointer hover-bright'
+                     ? 'disabled-text md:cursor-not-allowed'
+                     : 'hover-bright md:cursor-pointer'
                )}>
-               <Icon name='SkipIcon' />
+               <Icon name="SkipIcon" />
                <div>Skip to winner</div>
             </Button>
          </div>
@@ -46,7 +50,7 @@ export function GameToolbar({ onDealClick, onEndClick, isGameOver }: GameToolbar
                toggleTheme();
             }}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className='cursor-pointer hover-bright'>
+            className="hover-bright cursor-pointer">
             <Icon name={theme === 'dark' ? 'SunIcon' : 'MoonIcon'} />
          </Button>
       </Toolbar>

@@ -28,16 +28,20 @@ export function HandHeader({
    return (
       <div
          className={clsx(
-            'flex justify-between items-end gap-2',
+            'flex items-end justify-between gap-2',
             isWinner && winnerTextClass
          )}>
-         <div className='flex items-end gap-2'>
+         <div className="flex items-end gap-2">
             <Icon name={`Player${playerIndex + 1}Icon`} size={8} />
-            <Heading level={3}>{playerName || `Player ${playerIndex + 1}`}</Heading>
+            <Heading level={3}>
+               {playerName || `Player ${playerIndex + 1}`}
+            </Heading>
          </div>
-         <div className='flex items-end gap-2'>
-            {finalHand && <div className='text-center text-3xl'>{finalHand.name}</div>}
-            {isLocked && !finalHand && <Icon name='LockIcon' size={8} />}
+         <div className="flex items-end gap-2">
+            {finalHand && (
+               <div className="text-center text-3xl">{finalHand.name}</div>
+            )}
+            {isLocked && !finalHand && <Icon name="LockIcon" size={8} />}
          </div>
       </div>
    );

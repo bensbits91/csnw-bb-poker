@@ -30,8 +30,10 @@ export function Card({
       <div
          className={clsx(
             'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]', // to fit unicode characters neatly
-            'text-8xl md:text-9xl transition-transform duration-300',
-            isDarkMode ? 'bg-elevated-dark-1 shadow-dark-1' : 'bg-elevated-1 shadow-1',
+            'text-8xl transition-transform duration-300 md:text-9xl',
+            isDarkMode
+               ? 'bg-elevated-dark-1 shadow-dark-1'
+               : 'bg-elevated-1 shadow-1',
             isHidden && hiddenClass,
             isRed && redClass,
             isNotRed && notRedClass,
@@ -39,9 +41,9 @@ export function Card({
          )}>
          <button
             disabled={disabled}
-            type='button'
+            type="button"
             className={clsx(
-               'absolute leading-[0.8] bottom-[8px] right-[-6px] md:bottom-[12px] md:right-[-8px]', // to fit unicode characters neatly
+               'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]', // to fit unicode characters neatly
                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
             )}
             onClick={onClick}>

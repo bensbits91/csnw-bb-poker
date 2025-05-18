@@ -13,7 +13,9 @@ export function rankHand(hand: string[]): {
 } {
    // Example: hand = ['10♠', 'J♠', 'Q♠', 'K♠', 'A♠']
    if (hand.length !== 5) {
-      throw new Error('Invalid hand: A poker hand must contain exactly 5 cards.');
+      throw new Error(
+         'Invalid hand: A poker hand must contain exactly 5 cards.'
+      );
    }
 
    // Extract ranks and suits
@@ -56,10 +58,13 @@ export function rankHand(hand: string[]): {
 
    // Count occurrences of each rank
    // rankCount = { 10: 1, J: 1, Q: 1, K: 1, A: 1 }
-   const rankCount = rankValues.reduce((acc, val) => {
-      acc[val] = (acc[val] || 0) + 1;
-      return acc;
-   }, {} as Record<number, number>);
+   const rankCount = rankValues.reduce(
+      (acc, val) => {
+         acc[val] = (acc[val] || 0) + 1;
+         return acc;
+      },
+      {} as Record<number, number>
+   );
 
    // Check for Four of a Kind, return if found
    const fourOfAKindRank = Object.keys(rankCount)
@@ -81,7 +86,8 @@ export function rankHand(hand: string[]): {
       .find(rank => rankCount[rank] === 2);
 
    // Check for Full House, return if found
-   const hasFullHouse = threeOfAKindRank !== undefined && pairRank !== undefined;
+   const hasFullHouse =
+      threeOfAKindRank !== undefined && pairRank !== undefined;
    if (hasFullHouse) {
       const name = 'Full House';
       return {
@@ -106,7 +112,11 @@ export function rankHand(hand: string[]): {
    // Check for Three of a Kind
    if (threeOfAKindRank !== undefined) {
       const name = 'Three of a Kind';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: [threeOfAKindRank] };
+      return {
+         rank: HAND_RANKINGS[name],
+         name,
+         tiebreaker: [threeOfAKindRank]
+      };
    }
 
    // If we have a pair, check for Two Pair or One Pair

@@ -13,7 +13,9 @@ export function replaceCards(
       newHand[index] = deck.pop()!;
    });
 
-   const updatedPlayers = players.map((hand, i) => (i === playerIndex ? newHand : hand));
+   const updatedPlayers = players.map((hand, i) =>
+      i === playerIndex ? newHand : hand
+   );
 
    return { updatedPlayers, updatedDeck: deck };
 }
