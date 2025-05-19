@@ -5,6 +5,23 @@ import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
 import { useHand, useTheme } from '@/hooks/';
 
+/**
+ * Props for the Hand component.
+ * @typedef {Object} HandProps
+ * @property {number} playerIndex - The index of the player.
+ * @property {string} [playerName] - The name of the player.
+ * @property {string[]} hand - The cards in the player's hand.
+ * @property {boolean} [wasReset=false] - Whether the game was reset.
+ * @property {boolean} [isGameOver=false] - Whether the game is over.
+ * @property {boolean} [isWinner=false] - Whether the player is the winner.
+ * @property {Object} [finalHand] - The player's final ranked hand.
+ * @property {string} finalHand.name - The name of the hand (e.g., "Full House").
+ * @property {number} finalHand.rank - The rank of the hand.
+ * @property {number[]} finalHand.tiebreaker - The tiebreaker values for the hand.
+ * @property {(playerIndex: number, name: string) => void} onUpdatePlayerName - Callback to update the player's name.
+ * @property {(playerIndex: number, cardIndices: number[]) => void} onReplaceCards - Callback to replace cards in the player's hand.
+ * @property {(playerIndex: number) => void} onLockHand - Callback to lock the player's hand.
+ */
 type HandProps = {
    playerIndex: number;
    playerName?: string;
@@ -22,6 +39,13 @@ type HandProps = {
    onLockHand: (playerIndex: number) => void;
 };
 
+/**
+ * Hand component.
+ * Displays a player's hand, including the header, cards, toolbar, and winner animation.
+ *
+ * @param {HandProps} props - The props for the Hand component.
+ * @returns {JSX.Element} The rendered Hand component.
+ */
 export function Hand({
    playerIndex,
    playerName,

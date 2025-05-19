@@ -1,6 +1,19 @@
 import type { JSX } from 'react';
 import clsx from 'clsx';
 
+/**
+ * Props for the Heading component.
+ * @typedef {Object} HeadingProps
+ * @property {React.ReactNode} children - The content to display inside the heading.
+ * @property {string} [className] - Additional CSS classes for styling the heading.
+ * @property {1 | 2 | 3 | 4 | 5 | 6} [level=1] - The semantic HTML heading level (e.g., h1, h2).
+ * @property {1 | 2 | 3 | 4 | 5 | 6 | undefined} [appearance] - The visual appearance of the heading, defaults to the level.
+ * @property {'normal' | 'bold' | 'light'} [weight='normal'] - The font weight of the heading.
+ * @property {'sm' | 'md' | 'lg' | 'no'} [top='no'] - The top margin size.
+ * @property {'sm' | 'md' | 'lg' | 'no'} [bottom='no'] - The bottom margin size.
+ * @property {string} [id] - The ID of the heading element.
+ * @property {string} [ariaLabel] - The accessible label for the heading.
+ */
 interface HeadingProps {
    children: React.ReactNode;
    className?: string;
@@ -13,6 +26,13 @@ interface HeadingProps {
    ariaLabel?: string;
 }
 
+/**
+ * Heading component.
+ * Renders a semantic HTML heading element with customizable styles and accessibility features.
+ *
+ * @param {HeadingProps} props - The props for the Heading component.
+ * @returns {JSX.Element} The rendered Heading component.
+ */
 export function Heading({
    children,
    className,

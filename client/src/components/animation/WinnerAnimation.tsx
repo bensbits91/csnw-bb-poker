@@ -1,18 +1,32 @@
-import Lottie from 'lottie-react';
 import { useRef, useEffect, useMemo } from 'react';
+import Lottie from 'lottie-react';
 import type { LottieRefCurrentProps } from 'lottie-react';
 import winnerAnimation from '@/assets/winner.json';
 import { replaceLottieColors } from '@/utils/lottie';
 
+/**
+ * WinnerAnimation component.
+ * Displays a Lottie animation for the winner with customized colors and playback speed.
+ * The animation can be replayed by clicking on it.
+ *
+ * @returns {JSX.Element} The rendered WinnerAnimation component.
+ */
 export function WinnerAnimation() {
    const lottieRef = useRef<LottieRefCurrentProps>(null);
 
+   /**
+    * Sets the playback speed of the Lottie animation to 3x when the component mounts.
+    */
    useEffect(() => {
       if (lottieRef.current) {
          lottieRef.current.setSpeed(3);
       }
    }, []);
 
+   /**
+    * Memoized Lottie animation data with replaced colors.
+    * Replaces specific colors in the animation JSON with custom colors.
+    */
    const modifiedAnimation = useMemo(() => {
       const colorsToReplace = [
          {
@@ -42,15 +56,19 @@ export function WinnerAnimation() {
       });
    }, []);
 
+   /**
+    * Handles the click event to replay the animation.
+    * Resets the animation to the beginning and plays it at 3x speed.
+    */
+   const handleReplay = () => {
+      if (lottieRef.current) {
+         lottieRef.current.setSpeed(3);
+         lottieRef.current.goToAndPlay(0, true);
+      }
+   };
+
    return (
-      <div
-         onClick={() => {
-            if (lottieRef.current) {
-               lottieRef.current.setSpeed(3);
-               lottieRef.current.goToAndPlay(0, true);
-            }
-         }}
-         aria-label="Play winner animation">
+      <div onClick={handleReplay} aria-label="Play winner animation">
          <Lottie
             lottieRef={lottieRef}
             animationData={modifiedAnimation}
