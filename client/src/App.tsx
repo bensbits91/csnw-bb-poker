@@ -2,6 +2,13 @@ import { Game, GameHeader } from '@/components/game';
 import { useTheme } from '@/hooks/';
 import clsx from 'clsx';
 
+/**
+ * App component.
+ * The root component of the application. It sets up the main layout, applies theme-based styling,
+ * and renders the game header and game components.
+ *
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';

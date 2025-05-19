@@ -1,3 +1,12 @@
+/**
+ * Shuffles the deck and deals cards to players.
+ *
+ * @param {string[]} deck - The current deck of cards to shuffle and deal.
+ * @param {number} numPlayers - The number of players to deal cards to.
+ * @returns {Object} An object containing the dealt player hands and the updated deck.
+ * @property {string[][]} dealtPlayers - An array of player hands, where each hand is an array of 5 card strings.
+ * @property {string[]} updatedDeck - The remaining deck after dealing cards.
+ */
 export function shuffleAndDealCards(
    deck: string[],
    numPlayers: number
