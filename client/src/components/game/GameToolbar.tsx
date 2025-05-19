@@ -5,7 +5,7 @@ import { useTheme } from '@/hooks/';
 
 /**
  * Props for the GameToolbar component.
- * @typedef {Object} GameToolbarProps
+ * @interface GameToolbarProps
  * @property {boolean} [isGameOver=false] - Indicates whether the game is over.
  * @property {() => void} onDealClick - Callback function triggered when the "New deal" button is clicked.
  * @property {() => void} onEndClick - Callback function triggered when the "Skip to winner" button is clicked.

@@ -7,7 +7,7 @@ import { useHand, useTheme } from '@/hooks/';
 
 /**
  * Props for the Hand component.
- * @typedef {Object} HandProps
+ * @interface HandProps
  * @property {number} playerIndex - The index of the player.
  * @property {string} [playerName] - The name of the player.
  * @property {string[]} hand - The cards in the player's hand.
@@ -22,7 +22,7 @@ import { useHand, useTheme } from '@/hooks/';
  * @property {(playerIndex: number, cardIndices: number[]) => void} onReplaceCards - Callback to replace cards in the player's hand.
  * @property {(playerIndex: number) => void} onLockHand - Callback to lock the player's hand.
  */
-type HandProps = {
+interface HandProps {
    playerIndex: number;
    playerName?: string;
    hand: string[];
@@ -37,7 +37,7 @@ type HandProps = {
    onUpdatePlayerName: (playerIndex: number, name: string) => void;
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
    onLockHand: (playerIndex: number) => void;
-};
+}
 
 /**
  * Hand component.

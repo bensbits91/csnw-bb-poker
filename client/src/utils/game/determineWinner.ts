@@ -2,7 +2,7 @@ import { rankHand } from '@/utils/game';
 
 /**
  * Result of the determineWinner function.
- * @typedef {Object} determineWinnerResult
+ * @interface determineWinnerResult
  * @property {number[]} winners - The indices of the winning players.
  * @property {Object[]} rankedHands - The ranked hands of all players.
  * @property {number} rankedHands[].playerIndex - The index of the player.

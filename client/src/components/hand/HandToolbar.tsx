@@ -3,7 +3,7 @@ import { Button as OurButton } from '@/components/common';
 
 /**
  * Props for the HandToolbar component.
- * @typedef {Object} HandToolbarProps
+ * @interface HandToolbarProps
  * @property {number} playerIndex - The index of the player.
  * @property {boolean} [isSelection=false] - Whether there are selected cards.
  * @property {boolean} [isLocked=false] - Whether the player's hand is locked.

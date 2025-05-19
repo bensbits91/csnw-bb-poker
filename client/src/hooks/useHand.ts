@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 /**
  * Props for the useHand hook.
- * @typedef {Object} UseHandProps
+ * @interface UseHandProps
  * @property {number} playerIndex - The index of the player.
  * @property {boolean} wasReset - Whether the game was reset.
  * @property {(playerIndex: number, cardIndices: number[]) => void} onReplaceCards - Callback to replace cards in the player's hand.

@@ -1,6 +1,6 @@
 /**
  * Props for the replaceLottieColors function.
- * @typedef {Object} replaceLottieColorsProps
+ * @interface replaceLottieColorsProps
  * @property {Object} animationJson - The Lottie animation JSON object to modify.
  * @property {Array<{original: string, replacement: string}>} colorsToReplace - An array of objects specifying the colors to replace.
  * @property {string} colorsToReplace[].original - The original color to replace (in RGBA string format).

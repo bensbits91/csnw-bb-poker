@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 /**
  * Props for the Heading component.
- * @typedef {Object} HeadingProps
+ * @interface HeadingProps
  * @property {React.ReactNode} children - The content to display inside the heading.
  * @property {string} [className] - Additional CSS classes for styling the heading.
  * @property {1 | 2 | 3 | 4 | 5 | 6} [level=1] - The semantic HTML heading level (e.g., h1, h2).

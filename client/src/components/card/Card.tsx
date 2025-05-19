@@ -4,20 +4,20 @@ import { cardUnicodeMap } from '@/constants/card';
 
 /**
  * Props for the Card component.
- * @typedef {Object} CardProps
+ * @interface {Object} CardProps
  * @property {string} card - The card string (e.g., "10♥", "A♠").
  * @property {boolean} isSelected - Whether the card is selected.
  * @property {boolean} [isFlipped=false] - Whether the card is flipped (face down).
  * @property {boolean} [disabled=false] - Whether the card is disabled.
  * @property {() => void} onClick - Callback function triggered when the card is clicked.
  */
-type CardProps = {
+interface CardProps {
    card: string;
    isSelected: boolean;
    isFlipped?: boolean;
    disabled?: boolean;
    onClick: () => void;
-};
+}
 
 /**
  * Card component for displaying a playing card.

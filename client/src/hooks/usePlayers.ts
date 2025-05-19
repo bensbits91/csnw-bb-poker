@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'; // Install uuid: npm install uuid
  * Player interface.
  * Represents a player with a unique ID and a name.
  *
- * @typedef {Object} Player
+ * @interface Player
  * @property {string} id - The unique identifier for the player.
  * @property {string} name - The name of the player.
  */
