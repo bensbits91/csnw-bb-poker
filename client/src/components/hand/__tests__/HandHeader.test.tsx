@@ -16,6 +16,7 @@ describe('HandHeader Component', () => {
                playerIndex={0}
                isLocked={false}
                finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
+               onUpdatePlayerName={jest.fn()}
             />
          </ThemeProvider>
       );

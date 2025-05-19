@@ -1,6 +1,9 @@
 export { default as Icon } from './Icon';
+export { CheckIcon } from './CheckIcon';
+export { CloseIcon } from './CloseIcon';
 export { LockIcon } from './LockIcon';
 export { MoonIcon } from './MoonIcon';
+export { PencilIcon } from './PencilIcon';
 export { PersonIcon } from './PersonIcon';
 export { Player1Icon } from './Player1Icon';
 export { Player2Icon } from './Player2Icon';

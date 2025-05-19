@@ -7,6 +7,7 @@ import { useHand, useTheme } from '@/hooks/';
 
 type HandProps = {
    playerIndex: number;
+   playerName?: string;
    hand: string[];
    wasReset?: boolean;
    isGameOver?: boolean;
@@ -16,17 +17,20 @@ type HandProps = {
       rank: number;
       tiebreaker: number[];
    };
+   onUpdatePlayerName: (playerIndex: number, name: string) => void;
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
    onLockHand: (playerIndex: number) => void;
 };
 
 export function Hand({
    playerIndex,
+   playerName,
    hand,
    wasReset = false,
    isGameOver = false,
    finalHand,
    isWinner = false,
+   onUpdatePlayerName,
    onReplaceCards,
    onLockHand
 }: HandProps) {
@@ -61,6 +65,8 @@ export function Hand({
          )}>
          <HandHeader
             playerIndex={playerIndex}
+            playerName={playerName}
+            onUpdatePlayerName={onUpdatePlayerName}
             isLocked={isLocked || isGameOver}
             finalHand={finalHand}
             isWinner={isWinner}
