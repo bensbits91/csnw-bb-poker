@@ -4,7 +4,7 @@ import { useTheme } from '@/hooks/';
 
 /**
  * Props for the Button component.
- * @typedef {Object} ButtonProps
+ * @interface ButtonProps
  * @property {React.ReactNode} children - The content to display inside the button.
  * @property {string} [iconName] - The name of the icon to display inside the button.
  * @property {string} [ariaLabel] - The accessible label for the button.

@@ -4,7 +4,7 @@ import { createContext } from 'react';
  * ThemeContextType interface.
  * Defines the shape of the theme context, including the current theme and a function to toggle it.
  *
- * @typedef {Object} ThemeContextType
+ * @interface ThemeContextType
  * @property {string} theme - The current theme, either "light" or "dark".
  * @property {() => void} toggleTheme - Function to toggle between light and dark themes.
  */

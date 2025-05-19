@@ -4,9 +4,13 @@ import { useGame, usePlayers } from '@/hooks';
 
 /**
  * Game component.
- * The main component for the poker game, managing the game state and rendering the game UI.
+ * The main component for the poker game, responsible for managing the game state and rendering the game UI.
  * It includes the game toolbar, player hands, and game logic.
  *
+ * This component uses the `useGame` hook to manage game-related state and actions,
+ * and the `usePlayers` hook to manage player-related state and actions.
+ *
+ * @component
  * @returns {JSX.Element} The rendered Game component.
  */
 export function Game() {
@@ -31,7 +35,7 @@ export function Game() {
             onEndClick={handleEndNowClick}
          />
          {/* Table */}
-         <div className="grid gap-8 md:grid-cols-2">
+         <div className="grid gap-8 lg:grid-cols-2">
             {hands.map((hand, index) => (
                /* Player */
                <Hand

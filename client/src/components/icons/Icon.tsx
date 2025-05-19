@@ -2,7 +2,7 @@ import * as Icons from './index';
 
 /**
  * Props for the Icon component.
- * @typedef {Object} IconProps
+ * @interface IconProps
  * @property {string} name - The name of the icon to render.
  * @property {number} [size=4] - The size of the icon, where the value is multiplied by 4 to determine the pixel size.
  */

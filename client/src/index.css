@@ -42,7 +42,6 @@
 
 .bg-elevated-1 {
    @apply bg-gray-100;
-   /* @apply bg-[var(--csnw-gray-light-80)]; */
 }
 .bg-elevated-dark-1 {
    @apply bg-[var(--csnw-gray-dark-30)];

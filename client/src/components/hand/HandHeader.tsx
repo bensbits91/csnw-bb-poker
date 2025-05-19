@@ -3,11 +3,11 @@ import { Heading } from '@/components/typography';
 import { Icon } from '@/components/icons';
 import { useTheme } from '@/hooks/';
 import { useRef } from 'react';
-import { usePlayers } from '@/hooks/usePlayers';
+import { usePlayers } from '@/hooks';
 
 /**
  * Props for the HandHeader component.
- * @typedef {Object} HandHeaderProps
+ * @interface HandHeaderProps
  * @property {number} playerIndex - The index of the player.
  * @property {string} [playerName] - The name of the player.
  * @property {boolean} isLocked - Whether the player's hand is locked.
