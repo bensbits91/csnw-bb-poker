@@ -1,6 +1,6 @@
 import { Hand } from '@/components/hand';
 import { GameToolbar } from './GameToolbar';
-import { useGame } from '@/hooks';
+import { useGame, usePlayers } from '@/hooks';
 
 export function Game() {
    const {
@@ -13,6 +13,8 @@ export function Game() {
       handleDealClick,
       handleEndNowClick
    } = useGame();
+
+   const { playerNames, updatePlayerName } = usePlayers();
 
    return (
       <>
@@ -28,6 +30,8 @@ export function Game() {
                <Hand
                   key={index}
                   playerIndex={index}
+                  playerName={playerNames[index]}
+                  onUpdatePlayerName={updatePlayerName}
                   hand={hand}
                   isGameOver={!!winners}
                   wasReset={wasReset}

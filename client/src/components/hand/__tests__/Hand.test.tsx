@@ -45,12 +45,13 @@ describe('Hand Component', () => {
                hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
                onReplaceCards={mockOnReplaceCards}
                onLockHand={mockOnLockHand}
+               onUpdatePlayerName={jest.fn()}
             />
          </ThemeProvider>
       );
 
       // Verify cards are rendered
-      expect(screen.getAllByRole('button')).toHaveLength(7); // 5 cards + 2 buttons (replace, keep all)
+      expect(screen.getAllByRole('button')).toHaveLength(8); // 5 cards + 2 buttons (replace, keep all)
 
       // Verify header is rendered
       expect(screen.getByText('Player 1')).toBeInTheDocument();
@@ -70,6 +71,7 @@ describe('Hand Component', () => {
                finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
                onReplaceCards={jest.fn()}
                onLockHand={jest.fn()}
+               onUpdatePlayerName={jest.fn()}
             />
          </ThemeProvider>
       );
@@ -92,6 +94,7 @@ describe('Hand Component', () => {
                isWinner={true}
                onReplaceCards={jest.fn()}
                onLockHand={jest.fn()}
+               onUpdatePlayerName={jest.fn()}
             />
          </ThemeProvider>
       );
