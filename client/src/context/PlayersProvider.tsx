@@ -10,7 +10,6 @@ import type { PlayersContextType, Player } from './PlayersContext';
  * @component
  * @param {Object} props - The component props.
  * @param {React.ReactNode} props.children - The child components that will have access to the PlayersContext.
- *
  * @returns {JSX.Element} The PlayersProvider component.
  */
 export default function PlayersProvider({
