@@ -3,7 +3,7 @@ import { Heading } from '@/components/typography';
 import { Icon } from '@/components/icons';
 import { useTheme } from '@/hooks/';
 import { useRef } from 'react';
-import { usePlayers } from '@/hooks/usePlayers';
+import { usePlayers } from '@/hooks';
 
 /**
  * Props for the HandHeader component.
