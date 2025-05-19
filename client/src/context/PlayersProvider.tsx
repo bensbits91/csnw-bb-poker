@@ -12,20 +12,12 @@ import type { PlayersContextType, Player } from './PlayersContext';
  * @param {React.ReactNode} props.children - The child components that will have access to the PlayersContext.
  *
  * @returns {JSX.Element} The PlayersProvider component.
- *
- * @example
- * // Wrap your application in the PlayersProvider to provide access to the players state:
- * import { PlayersProvider } from '@/context/PlayersProvider';
- *
- * const App = () => (
- *    <PlayersProvider>
- *       <YourComponent />
- *    </PlayersProvider>
- * );
  */
-export const PlayersProvider: React.FC<{ children: React.ReactNode }> = ({
+export default function PlayersProvider({
    children
-}) => {
+}: {
+   children: React.ReactNode;
+}) {
    /**
     * State for the list of players.
     * Initializes from local storage or creates default players if none are stored.
@@ -176,4 +168,4 @@ export const PlayersProvider: React.FC<{ children: React.ReactNode }> = ({
    );
 
    return <PlayersContext value={contextValue}>{children}</PlayersContext>;
-};
+}

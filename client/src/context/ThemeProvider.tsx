@@ -10,7 +10,7 @@ import ThemeContext from './ThemeContext';
  * @param {ReactNode} props.children - The child components that will have access to the theme context.
  * @returns {JSX.Element} The rendered ThemeProvider component.
  */
-const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export default function ThemeProvider({ children }: { children: ReactNode }) {
    /**
     * State for the current theme.
     * Retrieves the theme from local storage or defaults to 'dark'.
@@ -40,6 +40,4 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
    const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
 
    return <ThemeContext value={value}>{children}</ThemeContext>;
-};
-
-export default ThemeProvider;
+}
