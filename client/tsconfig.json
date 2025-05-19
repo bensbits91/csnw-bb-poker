@@ -1,7 +1,11 @@
 {
    "files": [],
-   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+   "references": [
+      { "path": "./tsconfig.app.json" },
+      { "path": "./tsconfig.node.json" }
+   ],
    "compilerOptions": {
+      "resolveJsonModule": true,
       "esModuleInterop": true, // Ensure compatibility with CommonJS modules
       "module": "commonjs", // Use CommonJS for Jest compatibility
       "target": "ES2019", // Target a compatible ECMAScript version

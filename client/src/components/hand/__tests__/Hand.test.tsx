@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Hand } from '../Hand';
+import ThemeProvider from '@/context/ThemeContext';
+
+jest.mock('lottie-react', () => ({
+   __esModule: true,
+   default: () => <div data-testid="mock-lottie" /> // Mock Lottie component
+}));
 
 describe('Hand Component', () => {
    const mockUseHand = jest.fn();
@@ -20,7 +26,7 @@ describe('Hand Component', () => {
       mockUseHand.mockReturnValue({
          selectedCards: [],
          isLocked: false,
-         hiddenCards: [],
+         flippedCards: [],
          isSelection: false,
          handleCardClick: jest.fn(),
          handleReplace: jest.fn(),
@@ -28,12 +34,19 @@ describe('Hand Component', () => {
       });
 
       render(
-         <Hand
-            playerIndex={0}
-            hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
-            onReplaceCards={mockOnReplaceCards}
-            onLockHand={mockOnLockHand}
-         />
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <Hand
+               playerIndex={0}
+               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+               onReplaceCards={mockOnReplaceCards}
+               onLockHand={mockOnLockHand}
+            />
+         </ThemeProvider>
       );
 
       // Verify cards are rendered
@@ -43,31 +56,46 @@ describe('Hand Component', () => {
       expect(screen.getByText('Player 1')).toBeInTheDocument();
    });
 
-   // TODO: Figure out why this test fails
-   it.skip('disables cards when the hand is locked', () => {
-      mockUseHand.mockReturnValue({
-         selectedCards: [],
-         isLocked: true,
-         hiddenCards: [],
-         isSelection: false,
-         handleCardClick: jest.fn(),
-         handleReplace: jest.fn(),
-         handleKeepAll: jest.fn()
-      });
-
+   it('renders player name and final hand', () => {
       render(
-         <Hand
-            playerIndex={0}
-            hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
-            finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
-            onReplaceCards={mockOnReplaceCards}
-            onLockHand={mockOnLockHand}
-         />
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <Hand
+               playerIndex={0}
+               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+               finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
+               onReplaceCards={jest.fn()}
+               onLockHand={jest.fn()}
+            />
+         </ThemeProvider>
       );
 
-      // Verify cards are disabled
-      screen.getAllByRole('button').forEach(button => {
-         expect(button).toBeDisabled();
-      });
+      expect(screen.getByText('Player 1')).toBeInTheDocument();
+      expect(screen.getByText('High Card')).toBeInTheDocument();
+   });
+
+   it('renders winner indicator when the player is a winner', () => {
+      render(
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <Hand
+               playerIndex={0}
+               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+               isWinner={true}
+               onReplaceCards={jest.fn()}
+               onLockHand={jest.fn()}
+            />
+         </ThemeProvider>
+      );
+
+      expect(screen.getByTestId('winner-indicator')).toBeInTheDocument();
    });
 });

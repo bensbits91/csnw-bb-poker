@@ -97,6 +97,11 @@
    @apply bg-[var(--disabled-text)] text-[var(--csnw-gray-dark-10)];
 }
 
+.wcag-focus {
+   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--csnw-teal)] focus-visible:ring-offset-2;
+}
+
+
 a {
    font-weight: 500;
    color: #646cff;

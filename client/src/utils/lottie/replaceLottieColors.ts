@@ -14,6 +14,10 @@ export function replaceLottieColors({
    // condition,
    colorsToReplace
 }: replaceLottieColorsProps) {
+   if (typeof animationJson !== 'object' || animationJson === null) {
+      throw new TypeError('Invalid animationJson: must be a valid object');
+   }
+
    // Iterate over the array of colors to replace
    let modifiedAnimationJson = JSON.stringify(animationJson);
 

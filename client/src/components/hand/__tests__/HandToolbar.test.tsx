@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { HandToolbar } from '../HandToolbar';
+import ThemeProvider from '@/context/ThemeContext';
 
 describe('HandToolbar Component', () => {
    const mockOnKeepAllClick = jest.fn();
@@ -8,12 +9,20 @@ describe('HandToolbar Component', () => {
 
    it('renders buttons and handles clicks', () => {
       render(
-         <HandToolbar
-            isSelection={true}
-            isLocked={false}
-            onKeepAllClick={mockOnKeepAllClick}
-            onReplaceClick={mockOnReplaceClick}
-         />
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <HandToolbar
+               playerIndex={0}
+               isSelection={true}
+               isLocked={false}
+               onKeepAllClick={mockOnKeepAllClick}
+               onReplaceClick={mockOnReplaceClick}
+            />
+         </ThemeProvider>
       );
 
       // Verify buttons are rendered
@@ -33,12 +42,20 @@ describe('HandToolbar Component', () => {
 
    it('disables buttons when locked', () => {
       render(
-         <HandToolbar
-            isSelection={false}
-            isLocked={true}
-            onKeepAllClick={mockOnKeepAllClick}
-            onReplaceClick={mockOnReplaceClick}
-         />
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <HandToolbar
+               playerIndex={0}
+               isSelection={false}
+               isLocked={true}
+               onKeepAllClick={mockOnKeepAllClick}
+               onReplaceClick={mockOnReplaceClick}
+            />
+         </ThemeProvider>
       );
 
       // Verify buttons are disabled

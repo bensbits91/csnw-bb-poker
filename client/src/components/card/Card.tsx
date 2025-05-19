@@ -5,7 +5,7 @@ import { cardUnicodeMap } from '@/constants/card';
 type CardProps = {
    card: string;
    isSelected: boolean;
-   isHidden?: boolean;
+   isFlipped?: boolean;
    disabled?: boolean;
    onClick: () => void;
 };
@@ -13,18 +13,18 @@ type CardProps = {
 export function Card({
    card,
    isSelected,
-   isHidden = false,
+   isFlipped = false,
    disabled = false,
    onClick
 }: CardProps) {
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
-   const cardSuit = card[card.length - 1]; // Get the last character of the card string
-   const isRed = (cardSuit === '♥' || cardSuit === '♦') && !isHidden;
+   const suit = card[card.length - 1]; // Get the suit, the last character of the card string
+   const isRed = (suit === '♥' || suit === '♦') && !isFlipped;
    const redClass = isDarkMode ? 'text-red-300' : 'text-red-400';
-   const isNotRed = !isRed && !isHidden;
+   const isNotRed = !isRed && !isFlipped;
    const notRedClass = isDarkMode ? 'text-gray-300' : 'text-gray-700';
-   const hiddenClass = isDarkMode ? 'text-gray-500' : 'text-gray-400';
+   const flippedClass = isDarkMode ? 'text-gray-500' : 'text-gray-400';
 
    return (
       <div
@@ -34,7 +34,7 @@ export function Card({
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1'
                : 'bg-elevated-1 shadow-1',
-            isHidden && hiddenClass,
+            isFlipped && flippedClass,
             isRed && redClass,
             isNotRed && notRedClass,
             isSelected && '-translate-y-4 scale-110'
@@ -42,12 +42,14 @@ export function Card({
          <button
             disabled={disabled}
             type="button"
+            aria-label={isFlipped ? 'Flipped card' : card}
+            onClick={onClick}
             className={clsx(
+               'wcag-focus',
                'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]', // to fit unicode characters neatly
-               disabled ? 'cursor-not-allowed' : 'cursor-pointer'
-            )}
-            onClick={onClick}>
-            {isHidden ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}
+               disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+            )}>
+            {isFlipped ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}
          </button>
       </div>
    );

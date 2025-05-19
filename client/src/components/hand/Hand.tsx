@@ -33,7 +33,7 @@ export function Hand({
    const {
       selectedCards,
       isLocked,
-      hiddenCards,
+      flippedCards,
       isSelection,
       handleCardClick,
       handleReplace,
@@ -44,13 +44,14 @@ export function Hand({
       onReplaceCards,
       onLockHand
    });
-
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
    const winnerBorderClass = isDarkMode ? 'border-teal-dark' : 'border-teal';
+   const pIndex = playerIndex + 1;
 
    return (
-      <div
+      <article
+         aria-labelledby={`player-${pIndex}-header`}
          className={clsx(
             'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md md:p-6',
             isDarkMode
@@ -65,31 +66,40 @@ export function Hand({
             isWinner={isWinner}
          />
          {/* Hand */}
-         <div className="mx-auto flex w-full justify-between xl:w-[80%]">
+         <ul className="mx-auto flex w-full justify-between xl:w-[80%]">
             {hand.map((card, index) => (
-               <Card
-                  key={index}
-                  card={card}
-                  isHidden={hiddenCards.includes(index) && !finalHand}
-                  disabled={isLocked || isGameOver}
-                  isSelected={selectedCards.includes(index)}
-                  onClick={() => handleCardClick(index)}
-               />
+               <li key={index}>
+                  <Card
+                     card={card}
+                     isFlipped={flippedCards.includes(index) && !finalHand}
+                     disabled={isLocked || isGameOver}
+                     isSelected={selectedCards.includes(index)}
+                     onClick={() => handleCardClick(index)}
+                  />
+               </li>
             ))}
-         </div>
+         </ul>
          <HandToolbar
+            playerIndex={playerIndex}
             isSelection={isSelection}
             isLocked={isLocked || isGameOver}
             onKeepAllClick={handleKeepAll}
             onReplaceClick={handleReplace}
+            aria-label={`Player ${pIndex} actions`}
          />
          {isWinner && (
             <div
                data-testid="winner-indicator"
+               aria-hidden="true" // Hide animation from screen readers
                className="absolute -right-8 -bottom-15 z-10">
                <WinnerAnimation />
+               <span
+                  className="sr-only" // Screen reader text
+                  aria-live="polite">
+                  Player {pIndex} is the winner
+               </span>
             </div>
          )}
-      </div>
+      </article>
    );
 }

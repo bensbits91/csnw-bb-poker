@@ -16,7 +16,9 @@ export default function Icon({ name, size = 4 }: IconProps) {
    }
 
    return (
-      <div style={{ height: iconSize, width: iconSize }}>
+      <div
+         data-testid={`icon-${name}`}
+         style={{ height: iconSize, width: iconSize }}>
          <IconComponent name={name} />
       </div>
    );
