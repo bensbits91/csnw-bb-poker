@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import clsx from 'clsx';
 import { Heading } from '@/components/typography';
 import { Icon } from '@/components/icons';
@@ -30,7 +29,7 @@ export function HandHeader({
    const winnerTextClass = isDarkMode ? 'text-teal-dark' : 'text-teal';
 
    const {
-      playerNames,
+      players,
       isEditing,
       tempNames,
       startEditing,
@@ -86,12 +85,14 @@ export function HandHeader({
                            aria-label={`Edit name for Player ${pIndex}`}
                         />
                         <button
+                           type="button"
                            onClick={() => saveEditing(playerIndex)}
                            className="cursor-pointer text-green-500"
                            aria-label={`Save name for Player ${pIndex}`}>
                            <Icon name="CheckIcon" size={4} />
                         </button>
                         <button
+                           type="button"
                            onClick={() => cancelEditing(playerIndex)}
                            className="cursor-pointer text-red-500"
                            aria-label={`Cancel editing name for Player ${pIndex}`}>
@@ -103,9 +104,10 @@ export function HandHeader({
                         <span
                            onClick={handleStartEditing}
                            className="cursor-pointer">
-                           {playerNames[playerIndex]}
+                           {players[playerIndex].name}
                         </span>
                         <button
+                           type="button"
                            onClick={handleStartEditing}
                            className="cursor-pointer text-gray-500"
                            aria-label={`Edit name for Player ${pIndex}`}>

@@ -12,7 +12,7 @@ export const useGame = () => {
 
    // todo: this fixes the issue of the deck be reinitialized when we replace cards
    // but feels messy/hacky so let's clean it up
-   const [players, setPlayers] = useState(() => {
+   const [hands, setPlayers] = useState(() => {
       const { dealtPlayers, updatedDeck } = shuffleAndDealCards(deck, 4); // Deal cards to 4 players
       setDeck(updatedDeck); // Update the deck after dealing cards
       return dealtPlayers;
@@ -37,17 +37,17 @@ export const useGame = () => {
    };
 
    useEffect(() => {
-      if (lockedHands.length === players.length) {
-         const { winners, rankedHands } = determineWinner(players);
+      if (lockedHands.length === hands.length) {
+         const { winners, rankedHands } = determineWinner(hands);
          setWinners(winners);
          setFinalHands(rankedHands);
       }
-   }, [lockedHands, players.length, players]);
+   }, [lockedHands, hands.length, hands]);
 
    const handleReplaceCards = (playerIndex: number, cardIndices: number[]) => {
       // Replace cards and update the deck and players
       const { updatedPlayers, updatedDeck } = replaceCards(
-         players,
+         hands,
          deck,
          playerIndex,
          cardIndices
@@ -78,7 +78,7 @@ export const useGame = () => {
    };
 
    return {
-      players,
+      hands,
       deck,
       wasReset,
       winners,

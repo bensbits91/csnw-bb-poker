@@ -37,7 +37,6 @@ describe('Hand Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Hand
@@ -62,7 +61,6 @@ describe('Hand Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Hand
@@ -85,7 +83,6 @@ describe('Hand Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Hand
@@ -98,7 +95,6 @@ describe('Hand Component', () => {
             />
          </ThemeProvider>
       );
-
       expect(screen.getByTestId('winner-indicator')).toBeInTheDocument();
    });
 });

@@ -1,28 +1,44 @@
+
 import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Install uuid: npm install uuid
+
+interface Player {
+   id: string;
+   name: string;
+}
 
 export function usePlayers() {
-   const [playerNames, setPlayerNames] = useState<string[]>(() => {
-      const storedNames = localStorage.getItem('playerNames');
-      return storedNames
-         ? JSON.parse(storedNames)
-         : ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
+   const [players, setPlayers] = useState<Player[]>(() => {
+      const storedPlayers = localStorage.getItem('players');
+      if (storedPlayers) {
+         return JSON.parse(storedPlayers);
+      }
+      // Initialize with default players if none are stored
+      return [
+         { id: uuidv4(), name: 'Player 1' },
+         { id: uuidv4(), name: 'Player 2' },
+         { id: uuidv4(), name: 'Player 3' },
+         { id: uuidv4(), name: 'Player 4' }
+      ];
    });
 
    const [isEditing, setIsEditing] = useState<boolean[]>(() =>
-      Array(playerNames.length).fill(false)
+      Array(players.length).fill(false)
    );
-   const [tempNames, setTempNames] = useState<string[]>(() => [...playerNames]);
+   const [tempNames, setTempNames] = useState<string[]>(() =>
+      players.map(player => player.name)
+   );
 
-   // Persist player names to local storage whenever they change
+   // Persist players to local storage whenever they change
    useEffect(() => {
-      localStorage.setItem('playerNames', JSON.stringify(playerNames));
-   }, [playerNames]);
+      localStorage.setItem('players', JSON.stringify(players));
+   }, [players]);
 
    const updatePlayerName = (index: number, newName: string) => {
-      setPlayerNames(prevNames => {
-         const updatedNames = [...prevNames];
-         updatedNames[index] = newName;
-         return updatedNames;
+      setPlayers(prevPlayers => {
+         const updatedPlayers = [...prevPlayers];
+         updatedPlayers[index] = { ...updatedPlayers[index], name: newName }; // Update name, keep id
+         return updatedPlayers;
       });
    };
 
@@ -37,7 +53,7 @@ export function usePlayers() {
    const cancelEditing = (index: number) => {
       setTempNames(prevTempNames => {
          const updatedTempNames = [...prevTempNames];
-         updatedTempNames[index] = playerNames[index]; // Reset to original name
+         updatedTempNames[index] = players[index].name; // Reset to original name
          return updatedTempNames;
       });
       setIsEditing(prevEditing => {
@@ -67,7 +83,7 @@ export function usePlayers() {
    };
 
    return {
-      playerNames,
+      players, // Array of { id, name }
       updatePlayerName,
       isEditing,
       tempNames,

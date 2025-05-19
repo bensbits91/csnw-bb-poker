@@ -4,7 +4,7 @@ import { useGame, usePlayers } from '@/hooks';
 
 export function Game() {
    const {
-      players,
+      hands,
       wasReset,
       winners,
       finalHands,
@@ -14,7 +14,7 @@ export function Game() {
       handleEndNowClick
    } = useGame();
 
-   const { playerNames, updatePlayerName } = usePlayers();
+   const { players, updatePlayerName } = usePlayers();
 
    return (
       <>
@@ -25,12 +25,12 @@ export function Game() {
          />
          {/* Table */}
          <div className="grid gap-8 md:grid-cols-2">
-            {players.map((hand, index) => (
+            {hands.map((hand, index) => (
                /* Player */
                <Hand
-                  key={index}
+                  key={players[index].id}
                   playerIndex={index}
-                  playerName={playerNames[index]}
+                  playerName={players[index].name}
                   onUpdatePlayerName={updatePlayerName}
                   hand={hand}
                   isGameOver={!!winners}

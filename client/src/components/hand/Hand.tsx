@@ -74,7 +74,7 @@ export function Hand({
          {/* Hand */}
          <ul className="mx-auto flex w-full justify-between xl:w-[80%]">
             {hand.map((card, index) => (
-               <li key={index}>
+               <li key={card}>
                   <Card
                      card={card}
                      isFlipped={flippedCards.includes(index) && !finalHand}
