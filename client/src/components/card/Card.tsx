@@ -2,6 +2,15 @@ import clsx from 'clsx';
 import { useTheme } from '@/hooks/';
 import { cardUnicodeMap } from '@/constants/card';
 
+/**
+ * Props for the Card component.
+ * @typedef {Object} CardProps
+ * @property {string} card - The card string (e.g., "10♥", "A♠").
+ * @property {boolean} isSelected - Whether the card is selected.
+ * @property {boolean} [isFlipped=false] - Whether the card is flipped (face down).
+ * @property {boolean} [disabled=false] - Whether the card is disabled.
+ * @property {() => void} onClick - Callback function triggered when the card is clicked.
+ */
 type CardProps = {
    card: string;
    isSelected: boolean;
@@ -10,6 +19,13 @@ type CardProps = {
    onClick: () => void;
 };
 
+/**
+ * Card component for displaying a playing card.
+ * Handles styling based on the card's suit, selection state, and theme.
+ *
+ * @param {CardProps} props - The props for the Card component.
+ * @returns {JSX.Element} The rendered Card component.
+ */
 export function Card({
    card,
    isSelected,
@@ -19,17 +35,24 @@ export function Card({
 }: CardProps) {
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
-   const suit = card[card.length - 1]; // Get the suit, the last character of the card string
+
+   // Extract the suit from the card string (last character)
+   const suit = card[card.length - 1];
+
+   // Determine if the card is red (hearts or diamonds) and not flipped
    const isRed = (suit === '♥' || suit === '♦') && !isFlipped;
-   const redClass = isDarkMode ? 'text-red-300' : 'text-red-400';
    const isNotRed = !isRed && !isFlipped;
+
+   // Define classes for red cards, non-red cards, and flipped cards
+   const redClass = isDarkMode ? 'text-red-300' : 'text-red-400';
    const notRedClass = isDarkMode ? 'text-gray-300' : 'text-gray-700';
    const flippedClass = isDarkMode ? 'text-gray-500' : 'text-gray-400';
 
    return (
       <div
          className={clsx(
-            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]', // to fit unicode characters neatly
+            // to fit unicode characters neatly
+            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]',
             'text-8xl transition-transform duration-300 md:text-9xl',
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1'
@@ -46,7 +69,8 @@ export function Card({
             onClick={onClick}
             className={clsx(
                'wcag-focus',
-               'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]', // to fit unicode characters neatly
+               // to fit unicode characters neatly
+               'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]',
                disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
             )}>
             {isFlipped ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}

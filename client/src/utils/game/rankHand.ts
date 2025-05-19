@@ -2,10 +2,14 @@ import { HAND_RANKINGS } from '@/constants/handRankings';
 
 /**
  * Evaluates a poker hand and determines its rank and tiebreaker values.
- * @param hand - An array of strings representing the cards in the hand (e.g., ['10♠', 'J♠', 'Q♠', 'K♠', 'A♠']).
- * @returns An object containing the hand's rank and tiebreaker values.
+ *
+ * @param {string[]} hand - An array of strings representing the cards in the hand (e.g., ['10♠', 'J♠', 'Q♠', 'K♠', 'A♠']).
+ * @returns {Object} An object containing the hand's rank, name, and tiebreaker values.
+ * @property {number} rank - The numerical rank of the hand (e.g., 1 for Royal Flush, 2 for Straight Flush).
+ * @property {string} name - The name of the hand (e.g., "Full House", "Flush").
+ * @property {number[]} tiebreaker - An array of numerical values used to resolve ties between hands.
+ * @throws {Error} If the hand does not contain exactly 5 cards.
  */
-
 export function rankHand(hand: string[]): {
    rank: number;
    name: string;
@@ -97,19 +101,19 @@ export function rankHand(hand: string[]): {
       };
    }
 
-   // Check for Flush
+   // Return if we have a flush
    if (isFlush) {
       const name = 'Flush';
       return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
    }
 
-   // Check for Straight
+   // Return if we have a straight
    if (isStraight) {
       const name = 'Straight';
       return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
    }
 
-   // Check for Three of a Kind
+   // Check for Three of a Kind, return if found
    if (threeOfAKindRank !== undefined) {
       const name = 'Three of a Kind';
       return {

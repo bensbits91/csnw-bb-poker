@@ -3,12 +3,27 @@ import clsx from 'clsx';
 import { Icon } from '@/components/icons';
 import { useTheme } from '@/hooks/';
 
+/**
+ * Props for the GameToolbar component.
+ * @typedef {Object} GameToolbarProps
+ * @property {boolean} [isGameOver=false] - Indicates whether the game is over.
+ * @property {() => void} onDealClick - Callback function triggered when the "New deal" button is clicked.
+ * @property {() => void} onEndClick - Callback function triggered when the "Skip to winner" button is clicked.
+ */
 interface GameToolbarProps {
    isGameOver?: boolean;
    onDealClick: () => void;
    onEndClick: () => void;
 }
 
+/**
+ * GameToolbar component.
+ * Displays the toolbar for the poker game, including buttons for dealing a new hand,
+ * skipping to the winner, and toggling the theme.
+ *
+ * @param {GameToolbarProps} props - The props for the GameToolbar component.
+ * @returns {JSX.Element} The rendered GameToolbar component.
+ */
 export function GameToolbar({
    onDealClick,
    onEndClick,
@@ -26,6 +41,7 @@ export function GameToolbar({
                : 'bg-elevated-1 shadow-1 text-teal'
          )}>
          <div className="flex items-center gap-6">
+            {/* New Deal Button */}
             <Button
                aria-label="New deal button"
                tabIndex={0}
@@ -34,6 +50,7 @@ export function GameToolbar({
                <Icon name="ReloadIcon" />
                <div>New deal</div>
             </Button>
+            {/* Skip to Winner Button */}
             <Button
                aria-label="Skip to winner button"
                disabled={isGameOver}
@@ -49,6 +66,7 @@ export function GameToolbar({
                <div>Skip to winner</div>
             </Button>
          </div>
+         {/* Theme Toggle Button */}
          <Button
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             tabIndex={0}

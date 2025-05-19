@@ -1,5 +1,11 @@
 import { Heading } from '@/components/typography';
 
+/**
+ * GameHeader component.
+ * Displays the main header for the poker game, including the title and a brief description.
+ *
+ * @returns {JSX.Element} The rendered GameHeader component.
+ */
 export function GameHeader() {
    return (
       <div>

@@ -12,7 +12,6 @@ describe('Card Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Card
@@ -35,7 +34,6 @@ describe('Card Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Card
@@ -58,7 +56,6 @@ describe('Card Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Card
@@ -82,7 +79,6 @@ describe('Card Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Card
@@ -109,7 +105,6 @@ describe('Card Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Card

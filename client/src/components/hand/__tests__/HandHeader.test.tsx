@@ -9,7 +9,6 @@ describe('HandHeader Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <HandHeader

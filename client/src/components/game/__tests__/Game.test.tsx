@@ -28,7 +28,7 @@ describe('Game Component', () => {
 
       // Mock the useGame hook
       (useGameHook.useGame as jest.Mock).mockReturnValue({
-         players: [player1Cards, player2Cards],
+         hands: [player1Cards, player2Cards],
          finalHands: [null, null], // Mock finalHands with the same length as players
          handleDealClick: mockHandleDealClick,
          handleReplaceCards: mockHandleReplaceCards,
@@ -39,7 +39,6 @@ describe('Game Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Game />
@@ -64,7 +63,7 @@ describe('Game Component', () => {
    it('should display winners when they are determined', () => {
       // Mock the useGame hook
       (useGameHook.useGame as jest.Mock).mockReturnValue({
-         players: [
+         hands: [
             ['2♠', '3♠', '4♠', '5♠', '6♠'],
             ['7♠', '8♠', '9♠', '10♠', 'J♠']
          ],
@@ -81,7 +80,6 @@ describe('Game Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <Game />

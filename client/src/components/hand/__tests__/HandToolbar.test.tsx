@@ -12,7 +12,6 @@ describe('HandToolbar Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <HandToolbar
@@ -45,7 +44,6 @@ describe('HandToolbar Component', () => {
          <ThemeProvider
             value={{
                theme: 'light',
-               setTheme: jest.fn(),
                toggleTheme: jest.fn()
             }}>
             <HandToolbar
