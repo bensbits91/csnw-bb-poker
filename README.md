@@ -77,6 +77,95 @@ client/
 
 ---
 
+## Component Hierarchy
+
+```
+App
+├── GameHeader
+├── Game
+│   ├── Hand (for each player)
+│   │   ├── HandHeader
+│   │   ├── HandToolbar
+│   │   └── Card (for each card in the hand)
+│   └── GameToolbar
+└── ThemeProvider (wraps the entire app for theme context)
+```
+
+---
+
+## State Management Flow
+
+-  useGame Hook:
+   -  Manages the state for the poker game:
+      -  Deck of cards
+      -  Player hands
+      -  Locked hands
+      -  Winners
+      -  Game reset state
+   -  Provides functions to:
+      -  Deal cards
+      -  Replace cards
+      -  Lock hands
+      -  Determine winners
+-  usePlayers Hook:
+   -  Manages the state for player information:
+      -  Player names
+      -  Editing state for player names
+   -  Provides functions to:
+      -  Update player names
+      -  Start, cancel, and save name editing
+-  Interaction:
+   -  Game uses useGame to manage game logic and state.
+   -  Hand components use usePlayers to display and update player names.
+
+---
+
+## Context Usage
+
+-  ThemeContext:
+   -  Provides the current theme (light or dark) and a function to toggle the theme.
+   -  Used by:
+      -  App to apply theme-based styling.
+      -  GameToolbar to toggle between light and dark modes.
+
+### Flowchart Representation
+
+```
+[ThemeProvider]
+     |
+     v
+    [App]
+     |
+     +-------------------+
+     |                   |
+[GameHeader]         [Game]
+                         |
+                         +-----------------------------------+
+                         |                                   |
+                 [GameToolbar]                     [Hand (for each player)]
+                                                        |
+                                                        +-------------------+
+                                                        |                   |
+                                                [HandHeader]         [HandToolbar]
+                                                        |
+                                                [Card (for each card)]
+```
+
+---
+
+## State and Context Flow
+
+-  ThemeContext:
+   -  ThemeProvider wraps the app and provides the theme and toggleTheme function.
+   -  App and GameToolbar consume the ThemeContext.
+-  useGame:
+   -  Game uses useGame to manage game state (deck, hands, winners, etc.).
+   -  Hand components interact with useGame to lock hands, replace cards, and update the game state.
+-  usePlayers:
+   -  HandHeader uses usePlayers to manage player names and editing state.
+
+---
+
 ## Key Hooks
 
 ### `usePlayers`
