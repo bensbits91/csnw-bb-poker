@@ -16,7 +16,7 @@ export function GameHeader() {
             CSNW Poker by Ben
          </Heading>
          <p className="text-center">
-            5-card single-draw no-betting good-wholesome fun
+            Five-card, single-draw, no bets, wholesome fun
          </p>
       </div>
    );

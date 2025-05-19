@@ -81,7 +81,7 @@ export function Hand({
       <article
          aria-labelledby={`player-${pIndex}-header`}
          className={clsx(
-            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md md:p-6',
+            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md sm:py-6 sm:px-20 md:px-6',
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1'
                : 'bg-elevated-1 shadow-1',

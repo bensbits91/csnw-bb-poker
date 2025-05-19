@@ -35,7 +35,7 @@ export function Game() {
             onEndClick={handleEndNowClick}
          />
          {/* Table */}
-         <div className="grid gap-8 md:grid-cols-2">
+         <div className="grid gap-8 lg:grid-cols-2">
             {hands.map((hand, index) => (
                /* Player */
                <Hand
