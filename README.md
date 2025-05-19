@@ -25,6 +25,22 @@ This project uses Vite for fast builds and hot module replacement (HMR), along w
 
 ---
 
+## Deployment
+
+The application is deployed on **Vercel** and accessible at:
+
+- **Production URL**: [benbrookspoker.app](https://benbrookspoker.app)
+- **Vercel Deployment URL**: [csnw-bb-poker.vercel.app](https://csnw-bb-poker.vercel.app)
+
+### Deployment Details
+
+- **Hosting Platform**: [Vercel](https://vercel.com/)
+- **Custom Domain**: [benbrookspoker.app](https://benbrookspoker.app)
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+
+---
+
 ## Installation
 
 1. Clone the repository:
