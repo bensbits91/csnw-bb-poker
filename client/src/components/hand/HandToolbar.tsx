@@ -2,6 +2,7 @@ import { Toolbar, Button } from '@radix-ui/react-toolbar';
 import { Button as OurButton } from '@/components/common';
 
 interface HandToolbarProps {
+   playerIndex: number;
    isSelection?: boolean;
    isLocked?: boolean;
    onKeepAllClick: () => void;
@@ -9,14 +10,19 @@ interface HandToolbarProps {
 }
 
 export function HandToolbar({
+   playerIndex,
    isSelection,
    isLocked,
    onKeepAllClick,
    onReplaceClick
 }: HandToolbarProps) {
+   const pIndex = playerIndex + 1;
+
    return (
-      <Toolbar className="flex items-center gap-4">
-         <Button asChild>
+      <Toolbar
+         aria-label={`Player ${pIndex}`}
+         className="flex items-center gap-4">
+         <Button asChild aria-label="Keep all cards button">
             <OurButton
                iconName="LockIcon"
                onClick={onKeepAllClick}
@@ -24,7 +30,7 @@ export function HandToolbar({
                Keep all
             </OurButton>
          </Button>
-         <Button asChild>
+         <Button asChild aria-label="Replace selected cards button">
             <OurButton
                iconName="UpdateIcon"
                onClick={onReplaceClick}

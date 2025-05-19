@@ -43,12 +43,22 @@ export function WinnerAnimation() {
    }, []);
 
    return (
-      <Lottie
-         lottieRef={lottieRef}
-         animationData={modifiedAnimation}
-         loop={false}
-         autoplay={true}
-         style={{ width: 250, height: 250 }}
-      />
+      <div
+         onClick={() => {
+            if (lottieRef.current) {
+               lottieRef.current.setSpeed(3);
+               lottieRef.current.goToAndPlay(0, true);
+            }
+         }}
+         aria-label="Play winner animation">
+         <Lottie
+            lottieRef={lottieRef}
+            animationData={modifiedAnimation}
+            loop={false}
+            autoplay={true}
+            style={{ width: 250, height: 250, cursor: 'pointer' }}
+            aria-label="Winner receiving chips animation"
+         />
+      </div>
    );
 }

@@ -3,8 +3,23 @@ import '@testing-library/jest-dom';
 import { Game } from '../Game';
 import * as useGameHook from '@/hooks/useGame';
 import { cardUnicodeMap } from '@/constants/card';
+import ThemeProvider from '@/context/ThemeContext';
 
 jest.mock('@/hooks/useGame');
+jest.mock('lottie-react', () => ({
+   __esModule: true,
+   default: () => <div data-testid="mock-lottie" /> // Mock Lottie component
+}));
+jest.mock('@/assets/winner.json', () => ({
+   default: {} // Provide a mock JSON object
+}));
+
+const player1Cards = ['2♠', '3♠', '4♠', '5♠', '6♠'].map(
+   card => cardUnicodeMap[card]
+);
+const player2Cards = ['7♠', '8♠', '9♠', '10♠', 'J♠'].map(
+   card => cardUnicodeMap[card]
+);
 
 describe('Game Component', () => {
    it('should render players and handle the deal click', () => {
@@ -13,24 +28,22 @@ describe('Game Component', () => {
 
       // Mock the useGame hook
       (useGameHook.useGame as jest.Mock).mockReturnValue({
-         players: [
-            ['2♠', '3♠', '4♠', '5♠', '6♠'],
-            ['7♠', '8♠', '9♠', '10♠', 'J♠']
-         ],
+         players: [player1Cards, player2Cards],
          finalHands: [null, null], // Mock finalHands with the same length as players
          handleDealClick: mockHandleDealClick,
          handleReplaceCards: mockHandleReplaceCards,
          winners: null
       });
 
-      render(<Game />);
-
-      // Verify each card is rendered as a button
-      const player1Cards = ['2♠', '3♠', '4♠', '5♠', '6♠'].map(
-         card => cardUnicodeMap[card]
-      );
-      const player2Cards = ['7♠', '8♠', '9♠', '10♠', 'J♠'].map(
-         card => cardUnicodeMap[card]
+      render(
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <Game />
+         </ThemeProvider>
       );
 
       // Check Player 1's cards
@@ -64,7 +77,16 @@ describe('Game Component', () => {
          winners: [0]
       });
 
-      render(<Game />);
+      render(
+         <ThemeProvider
+            value={{
+               theme: 'light',
+               setTheme: jest.fn(),
+               toggleTheme: jest.fn()
+            }}>
+            <Game />
+         </ThemeProvider>
+      );
 
       // Verify winners are displayed
       expect(screen.getByTestId('winner-indicator')).toBeInTheDocument();

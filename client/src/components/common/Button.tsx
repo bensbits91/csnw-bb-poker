@@ -5,25 +5,35 @@ import { useTheme } from '@/hooks/';
 interface ButtonProps {
    children: React.ReactNode;
    iconName?: string;
-   onClick: () => void;
+   ariaLabel?: string;
    disabled?: boolean;
+   onClick: () => void;
 }
 
-export function Button({ children, iconName, onClick, disabled = false }: ButtonProps) {
+export function Button({
+   children,
+   iconName,
+   onClick,
+   ariaLabel,
+   disabled = false
+}: ButtonProps) {
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
 
-   const disabledClass = isDarkMode ? 'disabled-button-dark' : 'disabled-button';
+   const disabledClass = isDarkMode
+      ? 'disabled-button-dark'
+      : 'disabled-button';
 
    return (
       <button
          onClick={onClick}
+         aria-label={ariaLabel}
          disabled={disabled}
          className={clsx(
-            'flex items-center gap-2 px-4 py-2 rounded-md',
+            'flex items-center gap-2 rounded-md px-4 py-2 wcag-focus',
             disabled
                ? `md:cursor-not-allowed ${disabledClass}`
-               : 'md:cursor-pointer hover-bright',
+               : 'hover-bright md:cursor-pointer',
             isDarkMode ? 'button-dark' : 'button'
          )}>
          {iconName && <Icon name={iconName} />}

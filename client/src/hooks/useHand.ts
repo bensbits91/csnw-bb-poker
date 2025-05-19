@@ -15,7 +15,7 @@ export const useHand = ({
 }: UseHandProps) => {
    const [selectedCards, setSelectedCards] = useState<number[]>([]);
    const [isLocked, setIsLocked] = useState(false);
-   const [hiddenCards, setHiddenCards] = useState<number[]>([]);
+   const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
    const toggleCardSelection = (index: number) => {
       setSelectedCards(prev =>
@@ -32,7 +32,7 @@ export const useHand = ({
    const handleReplace = () => {
       onReplaceCards(playerIndex, selectedCards);
       setSelectedCards([]);
-      setHiddenCards(prev => [...prev, ...selectedCards]);
+      setFlippedCards(prev => [...prev, ...selectedCards]);
       handleLock();
    };
 
@@ -48,7 +48,7 @@ export const useHand = ({
 
    useEffect(() => {
       if (wasReset) {
-         setHiddenCards([]);
+         setFlippedCards([]);
          setSelectedCards([]);
          setIsLocked(false);
       }
@@ -59,7 +59,7 @@ export const useHand = ({
    return {
       selectedCards,
       isLocked,
-      hiddenCards,
+      flippedCards,
       isSelection,
       handleCardClick,
       handleReplace,

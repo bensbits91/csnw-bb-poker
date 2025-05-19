@@ -10,6 +10,7 @@ interface HeadingProps {
    top?: 'sm' | 'md' | 'lg' | 'no';
    bottom?: 'sm' | 'md' | 'lg' | 'no';
    id?: string;
+   ariaLabel?: string;
 }
 
 export function Heading({
@@ -20,7 +21,8 @@ export function Heading({
    weight = 'normal',
    top = 'no',
    bottom = 'no',
-   id
+   id,
+   ariaLabel
 }: HeadingProps) {
    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
 
@@ -29,6 +31,7 @@ export function Heading({
    return (
       <Tag
          id={id}
+         aria-label={ariaLabel}
          className={clsx(
             className,
             top === 'no' && 'mt-0',

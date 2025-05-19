@@ -27,16 +27,20 @@ export function GameToolbar({
          )}>
          <div className="flex items-center gap-6">
             <Button
+               aria-label="New deal button"
+               tabIndex={0}
                onClick={onDealClick}
-               className="hover-bright flex items-center gap-2 md:cursor-pointer">
+               className="hover-bright wcag-focus flex items-center gap-2 md:cursor-pointer">
                <Icon name="ReloadIcon" />
                <div>New deal</div>
             </Button>
             <Button
+               aria-label="Skip to winner button"
                disabled={isGameOver}
+               tabIndex={isGameOver ? -1 : 0}
                onClick={onEndClick}
                className={clsx(
-                  'flex items-center gap-2',
+                  'wcag-focus flex items-center gap-2',
                   isGameOver
                      ? 'disabled-text md:cursor-not-allowed'
                      : 'hover-bright md:cursor-pointer'
@@ -46,11 +50,13 @@ export function GameToolbar({
             </Button>
          </div>
          <Button
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            tabIndex={0}
+            data-testid="theme-toggle-button"
             onClick={() => {
                toggleTheme();
             }}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            className="hover-bright cursor-pointer">
+            className="hover-bright wcag-focus cursor-pointer">
             <Icon name={theme === 'dark' ? 'SunIcon' : 'MoonIcon'} />
          </Button>
       </Toolbar>
