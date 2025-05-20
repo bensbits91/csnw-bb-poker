@@ -259,6 +259,7 @@ Manages the application's theme (light/dark mode).
 
 -  **Deck Initialization**: Creates a standard deck of 52 cards.
 -  **Shuffling and Dealing**: Randomizes the deck and deals cards to players.
+   - IMPORTANT: We have logged an issue regarding the insufficient shuffling algorithm. We're curently using MATH.random(), which results in poor randomization with some browsers. We should implement a better algorithm, such as the "Fisher-Yates Shuffle.". [More details in the reported issue](https://github.com/bensbits91/csnw-bb-poker/issues/16). 
 -  **Card Replacement**: Handles replacing cards in a player's hand.
 -  **Hand Ranking**: Implements poker hand ranking logic.
 -  **Winner Determination**: Determines the winner(s) based on hand rankings.
