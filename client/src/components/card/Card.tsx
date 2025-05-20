@@ -74,7 +74,8 @@ export function Card({
             isNotRed && notRedClass,
             isSelected && '-translate-y-4 scale-110',
             // to fit unicode characters neatly
-            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]'
+            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]',
+            !disabled && 'md:hover:scale-105 md:hover:rotate-3'
          )}>
          <button
             disabled={disabled}
