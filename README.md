@@ -6,6 +6,31 @@ This project uses TypeScript for type safety and React for building the UI. It a
 
 ❤️ Play now at [benbrookspoker.app](https://benbrookspoker.app)
 
+## Table of Contents
+
+1. [Tech Stack](#tech-stack)
+2. [Features](#features)
+3. [Project Structure](#project-structure)
+4. [Installation](#installation)
+5. [Deployment](#deployment)
+6. [Client Directory Structure](#client-directory-structure)
+7. [Component Hierarchy](#component-hierarchy)
+8. [State Management Flow](#state-management-flow)
+9. [Context Usage](#context-usage)
+10.   [Key Hooks](#key-hooks)
+11.   [Utilities](#utilities)
+12.   [Styling](#styling)
+13.   [Accessibility Features](#accessibility-features)
+14.   [Error Handling](#error-handling)
+15.   [Testing](#testing)
+16.   [Performance Optimization](#performance-optimization)
+17.   [Why I Chose to Build This Poker Game](#why-i-chose-to-build-this-poker-game)
+18.   [Potential Future Enhancements](#potential-future-enhancements)
+19.   [FAQ](#faq)
+20.   [Contributing](#contributing)
+21.   [License](#license)
+22.   [Acknowledgments](#acknowledgments)
+
 ## Tech Stack
 
 -  **Frontend**: React, TypeScript, Tailwind CSS
