@@ -4,7 +4,9 @@ A poker game application built with React and TypeScript.
 
 This project uses TypeScript for type safety and React for building the UI. It also includes ESLint for linting and code quality.
 
-❤️ Play now at [benbrookspoker.app](https://benbrookspoker.app)
+❤️ Play now at [benbrookspoker.app](https://benbrookspoker.app).
+
+For more information, check the [wiki](https://github.com/bensbits91/csnw-bb-poker/wiki).
 
 ## Table of Contents
 
