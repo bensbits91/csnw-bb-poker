@@ -1,10 +1,18 @@
 # CSNW Poker
 
-A poker game application built with React, TypeScript, and Vite.
+A poker game application built with React and TypeScript.
 
-This project uses Vite for fast builds and hot module replacement (HMR), along with TypeScript for type safety and React for building the UI. It also includes ESLint for linting and code quality.
+This project uses TypeScript for type safety and React for building the UI. It also includes ESLint for linting and code quality.
 
----
+❤️ Play now at [benbrookspoker.app](https://benbrookspoker.app)
+
+## Tech Stack
+
+-  **Frontend**: React, TypeScript, Tailwind CSS
+-  **State Management**: React Context and custom hooks
+-  **Build Tool**: Vite
+-  **Testing**: Jest, Testing Library, Cypress
+-  **Deployment**: Vercel
 
 ## Features
 
@@ -13,33 +21,20 @@ This project uses Vite for fast builds and hot module replacement (HMR), along w
 -  **Persistent State**: Player names and theme persist in local storage.
 -  **Animations**: Includes two types of animations:
    -  **CSS Animations** for lightweight effects.
-   -  **Lottie Animations** with a custom hook for dynamic styling.
--  **Icons**: Curated from multiple sources and converted into styleable React components.
--  **Custom Components**: Built reusable components for buttons, icons, and more.
+   -  **Lottie Animations** with a custom hook for dynamic styling (used for the winner animation).
+-  **Icons**: Curated from multiple sources and converted into styleable React components. The Icon.tsx component accepts an icon name and size, allowing for flexible and reusable icon rendering throughout the application.
+-  **Custom Components**: Built reusable components for the game, hands and cards, including custom buttons, icons, and headings. All built from scratch. The toolbars incorporate [a Radix Primitive](https://www.radix-ui.com/primitives/docs/components/toolbar). No other libraries were used in the building of the components.
 -  **Accessibility**: Designed with WCAG compliance in mind.
--  **State Management**: Managed with custom hooks (no external libraries).
--  **Tailwind CSS**: Styled using Tailwind CSS with best practices.
--  **Radix Primitives**: Used for building the toolbar.
+-  **State Management**: Managed with custom hooks (no external libraries) and React Context Providers (e.g., `ThemeProvider`, `PlayersProvider`) for global state management.
+-  **Tailwind CSS**: Styled using Tailwind CSS to support quick, iterative development.
 -  **Hand Ranking Logic**: Includes utilities for deck initialization, shuffling, dealing, card replacement, hand ranking, and winner determination.
 -  **TypeScript Excellence**: Strongly typed codebase with heavy ESLint usage for code quality.
 
----
+## Project Structure
 
-## Deployment
+The entire application currently resides inside the `/client` directory, including the `package.json` file. This structure was chosen because the original plan was to move most of the game logic to a backend server (using Express) and develop the API in the `/server` directory. However, due to time constraints, I chose to focus on the frontend, to be sure to showcase my skills and experience using React with TypeScript.
 
-The application is deployed on **Vercel** and accessible at:
-
-- **Production URL**: [benbrookspoker.app](https://benbrookspoker.app)
-- **Vercel Deployment URL**: [csnw-bb-poker.vercel.app](https://csnw-bb-poker.vercel.app)
-
-### Deployment Details
-
-- **Hosting Platform**: [Vercel](https://vercel.com/)
-- **Custom Domain**: [benbrookspoker.app](https://benbrookspoker.app)
-- **Build Command**: `npm run build`
-- **Output Directory**: `dist`
-
----
+[Future enhancements](#potential-future-enhancements) can include separating the backend logic into its own directory and implementing server-side functionality for scalability and improved architecture.
 
 ## Installation
 
@@ -50,32 +45,51 @@ The application is deployed on **Vercel** and accessible at:
    cd csnw-poker
    ```
 
-2. Install dependencies:
+2. Navigate to the `/client` directory:
+
+   ```bash
+   cd client
+   ```
+
+3. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Start the development server:
+4. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-4. Build for production:
+5. Build for production:
 
    ```bash
    npm run build
    ```
 
-5. Preview the production build:
+6. Preview the production build:
+
    ```bash
    npm run preview
    ```
 
----
+## Deployment
 
-## Project Structure
+The application is deployed on **Vercel** and accessible at:
+
+-  **Production URL**: [benbrookspoker.app](https://benbrookspoker.app)
+-  **Vercel Deployment URL**: [csnw-bb-poker.vercel.app](https://csnw-bb-poker.vercel.app)
+
+### Deployment Details
+
+-  **Hosting Platform**: [Vercel](https://vercel.com/)
+-  **Custom Domain**: [benbrookspoker.app](https://benbrookspoker.app)
+-  **Build Command**: `npm run build`
+-  **Output Directory**: `dist`
+
+## Client Directory Structure
 
 ```
 client/
@@ -91,27 +105,24 @@ client/
 │   ├── index.tsx         # Entry point
 ```
 
----
-
 ## Component Hierarchy
 
 ```
 App
 ├── GameHeader
 ├── Game
+│   ├── GameToolbar
 │   ├── Hand (for each player)
 │   │   ├── HandHeader
-│   │   ├── HandToolbar
-│   │   └── Card (for each card in the hand)
-│   └── GameToolbar
-└── ThemeProvider (wraps the entire app for theme context)
+│   │   ├── Card (for each card in the hand)
+│   │   └── HandToolbar
+├── ThemeProvider (wraps the entire app for theme context)
+└── PlayersProvider (wraps the app for player state management)
 ```
-
----
 
 ## State Management Flow
 
--  useGame Hook:
+-  **useGame Hook**:
    -  Manages the state for the poker game:
       -  Deck of cards
       -  Player hands
@@ -123,31 +134,34 @@ App
       -  Replace cards
       -  Lock hands
       -  Determine winners
--  usePlayers Hook:
+-  **usePlayers Hook**:
    -  Manages the state for player information:
       -  Player names
       -  Editing state for player names
    -  Provides functions to:
       -  Update player names
       -  Start, cancel, and save name editing
--  Interaction:
+-  **Interaction**:
    -  Game uses useGame to manage game logic and state.
    -  Hand components use usePlayers to display and update player names.
 
----
-
 ## Context Usage
 
--  ThemeContext:
+-  **ThemeContext**:
    -  Provides the current theme (light or dark) and a function to toggle the theme.
    -  Used by:
       -  App to apply theme-based styling.
       -  GameToolbar to toggle between light and dark modes.
+-  **PlayersContext**:
+   -  Provides the current player names and editing state.
+   -  Used by:
+      -  HandHeader to display and edit player names.
+      -  GameToolbar to reset player names.
 
 ### Flowchart Representation
 
 ```
-[ThemeProvider]
+[Providers]
      |
      v
     [App]
@@ -161,26 +175,11 @@ App
                  [GameToolbar]                     [Hand (for each player)]
                                                         |
                                                         +-------------------+
-                                                        |                   |
-                                                [HandHeader]         [HandToolbar]
-                                                        |
-                                                [Card (for each card)]
+                                                        |       |           |
+                                                [HandHeader]    |    [HandToolbar]
+                                                                |
+                                                       [Card (for each card)]
 ```
-
----
-
-## State and Context Flow
-
--  ThemeContext:
-   -  ThemeProvider wraps the app and provides the theme and toggleTheme function.
-   -  App and GameToolbar consume the ThemeContext.
--  useGame:
-   -  Game uses useGame to manage game state (deck, hands, winners, etc.).
-   -  Hand components interact with useGame to lock hands, replace cards, and update the game state.
--  usePlayers:
-   -  HandHeader uses usePlayers to manage player names and editing state.
-
----
 
 ## Key Hooks
 
@@ -227,8 +226,6 @@ Manages the application's theme (light/dark mode).
 -  **Functions**:
    -  `toggleTheme()`: Toggles between light and dark mode.
 
----
-
 ## Utilities
 
 ### Deck and Game Logic
@@ -239,34 +236,115 @@ Manages the application's theme (light/dark mode).
 -  **Hand Ranking**: Implements poker hand ranking logic.
 -  **Winner Determination**: Determines the winner(s) based on hand rankings.
 
----
-
-## Custom Components
-
--  **Button**: A reusable button component with support for icons and accessibility.
--  **Icon**: Styleable React components for various icons.
--  **GameToolbar**: Built with Radix Primitives for accessibility and flexibility.
--  **HandHeader**: Displays player information and allows editing player names.
-
----
-
 ## Styling
 
--  **Tailwind CSS**: Used for styling with best practices.
+-  **Tailwind CSS**: Used for rapid styling.
 -  **Custom Theme Context**: Manages light and dark mode with a palette inspired by the CSNW website.
 -  **Responsive Design**: Fully responsive for desktop and mobile devices.
 
----
+## Accessibility Features
 
-## Accessibility
+-  **Keyboard Navigation**: All interactive elements are accessible via keyboard.
+-  **High Contrast Mode**: Dark mode and light mode provide clear visual contrast.
+-  **Screen Reader Support**: Semantic HTML and ARIA attributes ensure compatibility with screen readers.
 
--  Designed with WCAG compliance in mind.
--  Focus management and keyboard navigation for interactive elements.
--  High contrast and clear visual indicators for dark mode.
+## Error Handling
 
----
+The CSNW Poker application includes robust error handling mechanisms to ensure a smooth user experience and maintain application stability:
 
-## Why Build This Poker Game?
+### **Components**
+
+-  **Validation**:
+   -  Components validate props and user inputs to prevent invalid states.
+   -  Example: The `Card` component validates that a valid card object is passed and throws an error if the card is missing or malformed.
+
+### **Hooks**
+
+-  **Error Handling in Custom Hooks**:
+   -  Hooks like `useGame` and `usePlayers` include validation and error handling for state updates.
+   -  Example: `usePlayers` ensures that player names are not empty and prevents invalid updates.
+
+### **Utilities**
+
+-  **Validation in Utility Functions**:
+   -  Utility functions (e.g., for deck initialization, hand ranking, and card replacement) include checks to handle edge cases and invalid inputs.
+   -  Example: The hand ranking utility ensures that only valid poker hands are processed.
+
+### **Error Boundaries**
+
+-  **Custom Error Boundaries**:
+   -  The application uses custom Error Boundaries to catch and display errors in specific parts of the UI without crashing the entire app.
+   -  Examples:
+      -  The ErrorBoundary wrapping the mapping of hands to Hand components ensures that if an error occurs while rendering any individual player's hand, the rest of the game remains functional.
+      -  The WinnerAnimation component is responsible for displaying the animation when a winner is determined. If an error occurs in the animation (e.g., due to a rendering issue or invalid animation data), the game can still proceed without crashing.
+
+These error handling strategies ensure that the application remains resilient and provides meaningful feedback to users in case of unexpected issues.
+
+## Testing
+
+The CSNW Poker application includes a comprehensive testing strategy to ensure the reliability and correctness of the codebase. We use a combination of **Jest**, **Testing Library**, and **Cypress** to cover unit, integration, and end-to-end (E2E) testing.
+
+### **Unit and Integration Testing**
+
+-  **Jest**:
+   -  Used for unit and integration tests to validate the functionality of individual components, hooks, and utility functions.
+   -  Example: Testing the `useGame` hook to ensure proper state updates when dealing cards or determining winners.
+-  **Testing Library**:
+   -  Used alongside Jest to test React components in a way that mimics user interactions.
+   -  Example: Testing the `Hand` component to ensure player names are displayed correctly and cards are rendered as expected.
+
+### **End-to-End Testing**
+
+-  **Cypress**:
+   -  Used for E2E testing to validate the entire user flow, from starting a game to determining a winner.
+   -  Example Tests:
+      -  **Core Game Flow**: Ensures the game starts, cards are dealt, hands are locked, and a winner is determined.
+      -  **Player Name Editing**: Verifies that players can edit their names and the changes are reflected in the UI.
+      -  **Card Replacement**: Ensures players can replace cards in their hands and the deck updates correctly.
+      -  **Game Reset**: Confirms that resetting the game clears all player hands and resets the deck.
+
+### **Testing Strategy**
+
+-  **Focus on User Behavior**:
+   -  Tests are written to simulate real user interactions, ensuring the application behaves as expected in various scenarios.
+-  **Error Handling**:
+   -  Tests include scenarios for invalid inputs and edge cases to ensure the application handles errors gracefully.
+-  **Automation**:
+   -  Cypress tests are automated to run during the CI/CD pipeline, ensuring the application is thoroughly tested before deployment.
+
+### **How to Run Tests**
+
+1. **Run Unit and Integration Tests**:
+
+   ```bash
+   npm run test
+   ```
+
+   -  This runs all Jest tests and provides a coverage report.
+
+2. **Run End-to-End Tests**:
+
+   ```bash
+   npx cypress open
+   ```
+
+   -  This opens the Cypress Test Runner, where you can select and run individual E2E tests.
+
+3. **Run All Tests in CI**:
+   ```bash
+   npm run test:ci
+   ```
+   -  This runs both Jest and Cypress tests in a headless mode for CI/CD pipelines.
+
+By combining Jest, Testing Library, and Cypress, the CSNW Poker application ensures high-quality code and a seamless user experience.
+
+## Performance Optimization
+
+-  **Lazy Loading**: Components like `WinnerAnimation` are only loaded when needed.
+-  **Efficient State Management**: React Context and custom hooks are used to minimize unnecessary re-renders.
+-  **Build Optimization**: Vite is used for fast builds and optimized production output.
+
+## Why I Chose to Build This Poker Game?
 
 This poker game was chosen as a project because it offers:
 
@@ -274,7 +352,62 @@ This poker game was chosen as a project because it offers:
 -  **Interactivity**: Features like editing player names, dealing cards, and determining winners.
 -  **Frontend Choices**: Opportunities to explore animations, styling, and state management.
 
----
+## Potential Future Enhancements
+
+Here are some ideas for potential future improvements to the CSNW Poker application:
+
+### **Backend Integration**
+
+-  **Server-Side Logic**:
+   -  Move most of the game logic (e.g., dealing cards, hand ranking, winner determination) to a backend server for better scalability and security.
+-  **Database Integration**:
+   -  Use a lightweight NoSQL database to:
+      -  Save player information (e.g., names, preferences).
+      -  Store hand history for analytics or replay functionality.
+      -  Enable multiple players, using WebSockets for real-time communication.
+
+### **Improved Component Hierarchy**
+
+-  Refactor the component hierarchy to make it more intuitive and game-like:
+   ```
+   Game
+   ├── Table
+   │   ├── Player (for each player)
+   │   │   ├── Hand
+   │   │   │   ├── Card (for each card)
+   ```
+   -  Note: This approach may require lifting state and prop drilling, which could add complexity.
+
+### **Enhanced Frontend Experience**
+
+-  **More Game-Like Feel**:
+   -  Add more animations to enhance interactivity and immersion.
+   -  Introduce 3D effects for a more realistic poker table experience.
+-  **Hand Value Display**:
+   -  Show detailed hand values for better clarity:
+      -  Example:
+         -  "One Pair" → "Pair of 9s"
+         -  "Two Pair" → "Pair of 9s and Pair of 3s"
+         -  "Straight" → "9 high"
+-  **Improved Styling for Hands and Cards**:
+   -  Replace Unicode card symbols with custom-designed card graphics.
+   -  Arrange cards in a radial layout to mimic a real poker table.
+
+These enhancements aim to improve the scalability, usability, and overall user experience of the application while making it more engaging and visually appealing.
+
+## FAQ
+
+### Why is the game logic on the frontend?
+
+The initial focus was on showcasing frontend skills with React and TypeScript. Future enhancements may include moving the logic to a backend server.
+
+### Can I play this game with friends?
+
+Currently, the game is designed for local play. Multiplayer functionality is a potential future enhancement.
+
+### How do I reset the game?
+
+Click the "Reset Game" button in the toolbar to clear all hands and start a new game.
 
 ## Contributing
 
@@ -295,13 +428,9 @@ We welcome contributions! Please follow these steps:
    ```
 5. Open a pull request.
 
----
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
 
 ## Acknowledgments
 
