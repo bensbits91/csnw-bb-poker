@@ -16,7 +16,19 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     * Retrieves the theme from local storage or defaults to 'dark'.
     */
    const [theme, setTheme] = useState<string>(() => {
-      return localStorage.getItem('theme') || 'dark';
+      try {
+         const storedTheme = localStorage.getItem('theme');
+         if (storedTheme === 'light' || storedTheme === 'dark') {
+            return storedTheme;
+         }
+         return 'dark';
+      } catch (error) {
+         console.error(
+            'Failed to access localStorage. Defaulting to "dark".',
+            error
+         );
+         return 'dark';
+      }
    });
 
    /**
@@ -30,7 +42,11 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     * Saves the current theme to local storage whenever it changes.
     */
    useEffect(() => {
-      localStorage.setItem('theme', theme);
+      try {
+         localStorage.setItem('theme', theme);
+      } catch (error) {
+         console.error('Failed to save theme to localStorage.', error);
+      }
    }, [theme]);
 
    /**

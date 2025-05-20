@@ -22,11 +22,12 @@ describe('Icon Component', () => {
          .spyOn(console, 'error')
          .mockImplementation(() => {});
 
-      const { container } = render(<Icon name="InvalidIcon" />);
+      /* const { container } =   */ render(<Icon name="InvalidIcon" />);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
          'Icon "InvalidIcon" does not exist.'
       );
-      expect(container.firstChild).toBeNull();
+      const fallback = screen.getByTestId('icon-fallback');
+      expect(fallback).toBeInTheDocument();
 
       consoleErrorSpy.mockRestore();
    });

@@ -45,13 +45,13 @@ export function Heading({
    ariaLabel
 }: HeadingProps) {
    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-
    const as = appearance || level; // styling, default to level
+   const computedAriaLabel = ariaLabel || `Heading level ${level}`;
 
    return (
       <Tag
          id={id}
-         aria-label={ariaLabel}
+         aria-label={computedAriaLabel}
          className={clsx(
             className,
             top === 'no' && 'mt-0',

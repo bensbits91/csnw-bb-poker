@@ -15,5 +15,6 @@ export function shuffleAndDealCards(
    const dealtPlayers = Array.from({ length: numPlayers }, () =>
       shuffledDeck.splice(0, 5)
    ); // Deal 5 cards to each player
+
    return { dealtPlayers, updatedDeck: shuffledDeck }; // Return the players' hands and the remaining deck
 }

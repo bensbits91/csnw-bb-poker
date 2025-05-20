@@ -50,10 +50,15 @@ export function WinnerAnimation() {
             replacement: '0.105882352941,0.560784313725,0.560784313725,1'
          }
       ];
-      return replaceLottieColors({
-         animationJson: winnerAnimation,
-         colorsToReplace
-      });
+      try {
+         return replaceLottieColors({
+            animationJson: winnerAnimation,
+            colorsToReplace
+         });
+      } catch (error) {
+         console.error('Error replacing Lottie colors:', error);
+         return winnerAnimation; // Fallback to the original animation
+      }
    }, []);
 
    /**
@@ -62,8 +67,14 @@ export function WinnerAnimation() {
     */
    const handleReplay = () => {
       if (lottieRef.current) {
-         lottieRef.current.setSpeed(3);
-         lottieRef.current.goToAndPlay(0, true);
+         try {
+            lottieRef.current.setSpeed(3);
+            lottieRef.current.goToAndPlay(0, true);
+         } catch (error) {
+            console.error('Error replaying the animation:', error);
+         }
+      } else {
+         console.warn('Lottie reference is not available.');
       }
    };
 

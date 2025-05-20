@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Hand } from '../Hand';
 import ThemeProvider from '@/context/ThemeContext';
+import MockPlayersProvider from '@/context/__mocks__/MockPlayersProvider';
 
 jest.mock('lottie-react', () => ({
    __esModule: true,
@@ -39,13 +40,15 @@ describe('Hand Component', () => {
                theme: 'light',
                toggleTheme: jest.fn()
             }}>
-            <Hand
-               playerIndex={0}
-               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
-               onReplaceCards={mockOnReplaceCards}
-               onLockHand={mockOnLockHand}
-               onUpdatePlayerName={jest.fn()}
-            />
+            <MockPlayersProvider>
+               <Hand
+                  playerIndex={0}
+                  hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+                  onReplaceCards={mockOnReplaceCards}
+                  onLockHand={mockOnLockHand}
+                  onUpdatePlayerName={jest.fn()}
+               />
+            </MockPlayersProvider>
          </ThemeProvider>
       );
 
@@ -63,14 +66,16 @@ describe('Hand Component', () => {
                theme: 'light',
                toggleTheme: jest.fn()
             }}>
-            <Hand
-               playerIndex={0}
-               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
-               finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
-               onReplaceCards={jest.fn()}
-               onLockHand={jest.fn()}
-               onUpdatePlayerName={jest.fn()}
-            />
+            <MockPlayersProvider>
+               <Hand
+                  playerIndex={0}
+                  hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+                  finalHand={{ name: 'High Card', rank: 1, tiebreaker: [14] }}
+                  onReplaceCards={jest.fn()}
+                  onLockHand={jest.fn()}
+                  onUpdatePlayerName={jest.fn()}
+               />
+            </MockPlayersProvider>
          </ThemeProvider>
       );
 
@@ -85,14 +90,16 @@ describe('Hand Component', () => {
                theme: 'light',
                toggleTheme: jest.fn()
             }}>
-            <Hand
-               playerIndex={0}
-               hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
-               isWinner={true}
-               onReplaceCards={jest.fn()}
-               onLockHand={jest.fn()}
-               onUpdatePlayerName={jest.fn()}
-            />
+            <MockPlayersProvider>
+               <Hand
+                  playerIndex={0}
+                  hand={['2♠', '3♠', '4♠', '5♠', '6♠']}
+                  isWinner={true}
+                  onReplaceCards={jest.fn()}
+                  onLockHand={jest.fn()}
+                  onUpdatePlayerName={jest.fn()}
+               />
+            </MockPlayersProvider>
          </ThemeProvider>
       );
       expect(screen.getByTestId('winner-indicator')).toBeInTheDocument();

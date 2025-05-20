@@ -34,6 +34,13 @@ export function HandToolbar({
 }: HandToolbarProps) {
    const pIndex = playerIndex + 1;
 
+   if (playerIndex < 0 || typeof playerIndex !== 'number') {
+      console.error(`Invalid playerIndex: ${playerIndex}.`);
+      throw new Error(
+         `HandToolbar received an invalid playerIndex: ${playerIndex}.`
+      );
+   }
+
    return (
       <Toolbar
          aria-label={`Player ${pIndex}`}

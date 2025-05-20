@@ -15,7 +15,7 @@ describe('GameHeader Component', () => {
 
       // Verify the description is rendered
       const description = screen.getByText(
-         '5-card single-draw no-betting good-wholesome fun'
+         'Five-card, single-draw, no bets, wholesome fun'
       );
       expect(description).toBeInTheDocument();
    });
