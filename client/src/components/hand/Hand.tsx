@@ -75,7 +75,9 @@ export function Hand({
    });
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
-   const winnerBorderClass = isDarkMode ? 'border-teal-dark' : 'border-teal';
+   const winnerBorderClass = isDarkMode
+      ? 'border-csnw-teal'
+      : 'border-csnw-teal-dark-30';
    const pIndex = playerIndex + 1;
 
    if (!Array.isArray(hand) || hand.length === 0) {
@@ -109,10 +111,8 @@ export function Hand({
       <article
          aria-labelledby={`player-${pIndex}-header`}
          className={clsx(
-            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md sm:px-20 sm:py-6 md:px-6',
-            isDarkMode
-               ? 'bg-elevated-dark-1 shadow-dark-1'
-               : 'bg-elevated-1 shadow-1',
+            'relative flex flex-col gap-6 rounded-lg border-2 p-2 shadow-md sm:px-20 sm:py-6 md:px-6',
+            isDarkMode ? 'bg-elevated-dark-1' : 'bg-elevated-1',
             isWinner ? winnerBorderClass : 'border-transparent'
          )}>
          <HandHeader

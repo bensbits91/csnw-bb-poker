@@ -11,13 +11,11 @@ export function GameHeader() {
       <div>
          <Heading
             level={1}
+            appearance={2}
             ariaLabel="CSNW Poker by Ben"
             className="text-center">
             CSNW Poker by Ben
          </Heading>
-         <p className="text-center">
-            Five-card, single-draw, no bets, wholesome fun
-         </p>
       </div>
    );
 }

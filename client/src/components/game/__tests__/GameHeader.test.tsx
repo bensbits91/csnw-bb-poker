@@ -12,12 +12,6 @@ describe('GameHeader Component', () => {
       });
       expect(heading).toBeInTheDocument();
       expect(heading.tagName).toBe('H1'); // Ensure it's an <h1>
-
-      // Verify the description is rendered
-      const description = screen.getByText(
-         'Five-card, single-draw, no bets, wholesome fun'
-      );
-      expect(description).toBeInTheDocument();
    });
 
    it('applies the correct aria-label to the heading', () => {

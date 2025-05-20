@@ -56,7 +56,9 @@ export function Card({
    const isNotRed = !isRed && !isFlipped;
 
    // Define classes for red cards, non-red cards, and flipped cards
-   const redClass = isDarkMode ? 'text-red-300' : 'text-red-400';
+   const redClass = isDarkMode
+      ? 'text-csnw-red-light-50'
+      : 'text-csnw-red-light-30';
    const notRedClass = isDarkMode ? 'text-gray-300' : 'text-gray-700';
    const flippedClass = isDarkMode ? 'text-gray-500' : 'text-gray-400';
 
@@ -65,8 +67,8 @@ export function Card({
          className={clsx(
             'text-8xl transition-transform duration-300 md:text-9xl',
             isDarkMode
-               ? 'bg-elevated-dark-1 shadow-dark-1'
-               : 'bg-elevated-1 shadow-1',
+               ? 'bg-csnw-gray-dark-50 shadow-lg shadow-black'
+               : 'bg-white shadow-lg',
             isFlipped && flippedClass,
             isRed && redClass,
             isNotRed && notRedClass,

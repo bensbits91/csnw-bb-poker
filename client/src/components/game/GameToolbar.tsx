@@ -37,8 +37,8 @@ export function GameToolbar({
          className={clsx(
             'flex items-center justify-between rounded-lg px-8 py-4',
             isDarkMode
-               ? 'bg-elevated-dark-1 shadow-dark-1 text-teal-dark'
-               : 'bg-elevated-1 shadow-1 text-teal'
+               ? 'bg-elevated-dark-1 text-csnw-teal'
+               : 'bg-elevated-1 text-csnw-teal-dark-30'
          )}>
          <div className="flex items-center gap-6">
             {/* New Deal Button */}
@@ -59,7 +59,7 @@ export function GameToolbar({
                className={clsx(
                   'wcag-focus flex items-center gap-2',
                   isGameOver
-                     ? 'disabled-text md:cursor-not-allowed'
+                     ? 'text-csnw-gray-light-30 md:cursor-not-allowed'
                      : 'hover-bright md:cursor-pointer'
                )}>
                <Icon name="SkipIcon" />
