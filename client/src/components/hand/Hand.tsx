@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import { Card } from '@/components/card';
-import { WinnerAnimation } from '@/components/animation';
 import { HandHeader } from './HandHeader';
 import { HandToolbar } from './HandToolbar';
+import { Card } from '@/components/card';
+import { WinnerAnimation } from '@/components/animation';
+import { ErrorBoundary } from '@/components/common';
 import { useHand, useTheme } from '@/hooks/';
 
 /**
@@ -63,7 +64,7 @@ export function Hand({
       isLocked,
       flippedCards,
       isSelection,
-      handleCardClick,
+      handleCardClickWithIndex,
       handleReplace,
       handleKeepAll
    } = useHand({
@@ -77,11 +78,38 @@ export function Hand({
    const winnerBorderClass = isDarkMode ? 'border-teal-dark' : 'border-teal';
    const pIndex = playerIndex + 1;
 
+   if (!Array.isArray(hand) || hand.length === 0) {
+      console.error('Hand component requires a non-empty `hand` array.');
+      throw new Error('Hand component requires a non-empty `hand` array.');
+   }
+   if (typeof playerIndex !== 'number' || playerIndex < 0) {
+      console.error(
+         'Hand component requires a valid `playerIndex` (non-negative number).'
+      );
+      throw new Error('Hand component requires a valid `playerIndex`.');
+   }
+   if (typeof onReplaceCards !== 'function') {
+      console.error(
+         'Hand component requires a valid `onReplaceCards` function.'
+      );
+      throw new Error(
+         'Hand component requires a valid `onReplaceCards` function.'
+      );
+   }
+   if (!Array.isArray(selectedCards)) {
+      console.error('useHand returned an invalid `selectedCards` array.');
+      throw new Error('useHand returned an invalid `selectedCards` array.');
+   }
+   if (!Array.isArray(flippedCards)) {
+      console.error('useHand returned an invalid `flippedCards` array.');
+      throw new Error('useHand returned an invalid `flippedCards` array.');
+   }
+
    return (
       <article
          aria-labelledby={`player-${pIndex}-header`}
          className={clsx(
-            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md sm:py-6 sm:px-20 md:px-6',
+            'relative flex flex-col gap-4 rounded-lg border-2 p-2 shadow-md sm:px-20 sm:py-6 md:px-6',
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1'
                : 'bg-elevated-1 shadow-1',
@@ -104,7 +132,7 @@ export function Hand({
                      isFlipped={flippedCards.includes(index) && !finalHand}
                      disabled={isLocked || isGameOver}
                      isSelected={selectedCards.includes(index)}
-                     onClick={() => handleCardClick(index)}
+                     onClick={handleCardClickWithIndex(index)}
                   />
                </li>
             ))}
@@ -122,7 +150,15 @@ export function Hand({
                data-testid="winner-indicator"
                aria-hidden="true" // Hide animation from screen readers
                className="absolute -right-8 -bottom-15 z-10">
-               <WinnerAnimation />
+               <ErrorBoundary
+                  fallback={
+                     <div
+                        data-testid="winner-indicator"
+                        className="h-24 w-24"
+                     />
+                  }>
+                  <WinnerAnimation />
+               </ErrorBoundary>
                <span
                   className="sr-only" // Screen reader text
                   aria-live="polite">

@@ -77,6 +77,10 @@ export const useGame = () => {
     * @param {number} playerIndex - The index of the player whose hand is being locked.
     */
    const handleLockHand = (playerIndex: number) => {
+      if (playerIndex < 0 || playerIndex >= hands.length) {
+         console.error(`Invalid playerIndex: ${playerIndex}.`);
+         throw new Error('handleLockHand received an invalid playerIndex.');
+      }
       setLockedHands(prev => {
          const updatedLockedHands = [...prev, playerIndex];
          return updatedLockedHands;

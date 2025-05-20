@@ -10,6 +10,15 @@ interface IconProps {
    name: string;
    size?: number;
 }
+const FallbackIcon = ({ iconSize }: { iconSize: string }) => (
+   <div
+      data-testid="icon-fallback"
+      style={{
+         height: iconSize,
+         width: iconSize
+      }}
+   />
+);
 
 /**
  * Icon component.
@@ -21,17 +30,21 @@ interface IconProps {
  */
 export default function Icon({ name, size = 4 }: IconProps) {
    const IconComponent = Icons[name as keyof typeof Icons];
-
    const iconSize = `${size * 4}px`;
 
+   if (!name || typeof name !== 'string') {
+      console.error('Icon component requires a valid "name" prop.');
+      return <FallbackIcon iconSize={iconSize} />;
+   }
    if (!IconComponent) {
       console.error(`Icon "${name}" does not exist.`);
-      return null; // Return null if the icon name is invalid
+      return <FallbackIcon iconSize={iconSize} />;
    }
 
    return (
       <div
          data-testid={`icon-${name}`}
+         aria-label={`Icon: ${name}`}
          style={{ height: iconSize, width: iconSize }}>
          <IconComponent name={name} />
       </div>

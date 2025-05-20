@@ -3,12 +3,13 @@ import { HAND_RANKINGS } from '@/constants/handRankings';
 /**
  * Evaluates a poker hand and determines its rank and tiebreaker values.
  *
- * @param {string[]} hand - An array of strings representing the cards in the hand (e.g., ['10♠', 'J♠', 'Q♠', 'K♠', 'A♠']).
- * @returns {Object} An object containing the hand's rank, name, and tiebreaker values.
- * @property {number} rank - The numerical rank of the hand (e.g., 1 for Royal Flush, 2 for Straight Flush).
- * @property {string} name - The name of the hand (e.g., "Full House", "Flush").
- * @property {number[]} tiebreaker - An array of numerical values used to resolve ties between hands.
- * @throws {Error} If the hand does not contain exactly 5 cards.
+ * @param {string[]} hand - An array of strings representing the cards in the hand.
+ *                          Each card is represented as a combination of rank and suit (e.g., ['10♠', 'J♠', 'Q♠', 'K♠', 'A♠']).
+ * @returns {{ rank: number, name: string, tiebreaker: number[] }} An object containing:
+ *          - `rank`: The numerical rank of the hand (e.g., 1 for Royal Flush, 2 for Straight Flush).
+ *          - `name`: The name of the hand (e.g., "Full House", "Flush").
+ *          - `tiebreaker`: An array of numerical values used to resolve ties between hands.
+ * @throws {Error} If the hand does not contain exactly 5 cards or contains invalid card values.
  */
 export function rankHand(hand: string[]): {
    rank: number;
@@ -38,10 +39,30 @@ export function rankHand(hand: string[]): {
       .sort((a, b) => b - a); // Sort descending to make it easier to check for straights and get high card
    // rankValues = [14, 13, 12, 11, 10]
 
-   // TODO: document our ranking functions
-   // TODO: test live
-   // TODO: unit tests
-   // TODO: change card "rank" to something else to avoid confusion with rank of hand
+   if (rankValues.some(val => isNaN(val))) {
+      console.error('Invalid rank values in hand:', rankValues);
+      throw new Error('rankHand encountered invalid rank values.');
+   }
+
+   /**
+    * Creates an object representing the rank, name, and tiebreaker values of a poker hand.
+    *
+    * @param {keyof typeof HAND_RANKINGS} name - The name of the poker hand (e.g., "Royal Flush", "Full House").
+    * @param {number[]} [tiebreaker=rankValues] - An array of numerical values used to resolve ties between hands.
+    *                                            Defaults to the sorted rank values of the hand.
+    * @returns {{ rank: number, name: string, tiebreaker: number[] }} An object containing:
+    *          - `rank`: The numerical rank of the hand (e.g., 1 for Royal Flush, 2 for Straight Flush).
+    *          - `name`: The name of the hand (e.g., "Full House", "Flush").
+    *          - `tiebreaker`: An array of numerical values used to resolve ties between hands.
+    */
+   const rankingToReturn = (
+      name: keyof typeof HAND_RANKINGS,
+      tiebreaker = rankValues
+   ) => ({
+      rank: HAND_RANKINGS[name],
+      name,
+      tiebreaker: tiebreaker
+   });
 
    const isFlush = suits.every(suit => suit === suits[0]);
    const isStraight = rankValues.every(
@@ -51,13 +72,13 @@ export function rankHand(hand: string[]): {
    // Check for Royal Flush, return if found
    if (isFlush && isStraight && rankValues[0] === 14) {
       const name = 'Royal Flush';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
+      return rankingToReturn(name);
    }
 
    // Check for Straight Flush, return if found
    if (isFlush && isStraight) {
       const name = 'Straight Flush';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
+      return rankingToReturn(name);
    }
 
    // Count occurrences of each rank
@@ -94,33 +115,25 @@ export function rankHand(hand: string[]): {
       threeOfAKindRank !== undefined && pairRank !== undefined;
    if (hasFullHouse) {
       const name = 'Full House';
-      return {
-         rank: HAND_RANKINGS[name],
-         name,
-         tiebreaker: [threeOfAKindRank!, pairRank!]
-      };
+      return rankingToReturn(name, [threeOfAKindRank!, pairRank!]);
    }
 
    // Return if we have a flush
    if (isFlush) {
       const name = 'Flush';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
+      return rankingToReturn(name);
    }
 
    // Return if we have a straight
    if (isStraight) {
       const name = 'Straight';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
+      return rankingToReturn(name);
    }
 
    // Check for Three of a Kind, return if found
    if (threeOfAKindRank !== undefined) {
       const name = 'Three of a Kind';
-      return {
-         rank: HAND_RANKINGS[name],
-         name,
-         tiebreaker: [threeOfAKindRank]
-      };
+      return rankingToReturn(name, [threeOfAKindRank]);
    }
 
    // If we have a pair, check for Two Pair or One Pair
@@ -135,24 +148,16 @@ export function rankHand(hand: string[]): {
          const remainingCards = rankValues
             .filter(val => val !== pairRank && val !== secondPairRank)
             .sort((a, b) => b - a); // todo: this is wrong, in unit test, it should be [10, 9, 2] but is [9, 10, 2]
-         return {
-            rank: HAND_RANKINGS[name],
-            name,
-            tiebreaker: [...pairsSorted, ...remainingCards]
-         };
+         return rankingToReturn(name, [...pairsSorted, ...remainingCards]);
       }
 
       // Default to One Pair and return
       const name = 'One Pair';
       const remainingCards = rankValues.filter(val => val !== pairRank);
-      return {
-         rank: HAND_RANKINGS[name],
-         name,
-         tiebreaker: [pairRank, ...remainingCards]
-      };
+      return rankingToReturn(name, [pairRank, ...remainingCards]);
    }
 
    // Default to High Card and return
    const name = 'High Card';
-   return { rank: HAND_RANKINGS[name], name, tiebreaker: rankValues };
+   return rankingToReturn(name);
 }

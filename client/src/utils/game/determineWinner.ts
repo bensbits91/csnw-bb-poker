@@ -29,6 +29,13 @@ interface determineWinnerResult {
  * @returns {determineWinnerResult} The result containing the indices of the winners and the ranked hands of all players.
  */
 export function determineWinner(players: string[][]): determineWinnerResult {
+   if (!Array.isArray(players) || players.length === 0) {
+      console.error('Invalid input: players must be a non-empty array.');
+      throw new Error(
+         'determineWinner requires a valid array of player hands.'
+      );
+   }
+
    /**
     * Ranks the hands of all players.
     * Each hand is ranked using the `rankHand` utility function.
@@ -49,6 +56,11 @@ export function determineWinner(players: string[][]): determineWinnerResult {
    const potentialWinners = rankedHands.filter(
       hand => hand.rank === highestRank
    );
+
+   if (potentialWinners.length === 0) {
+      console.error('No valid winners found. All hands may be invalid.');
+      throw new Error('determineWinner could not determine a winner.');
+   }
 
    /**
     * Breaks ties among players with the highest rank using tiebreaker values.

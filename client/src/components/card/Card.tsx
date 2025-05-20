@@ -36,6 +36,18 @@ export function Card({
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
 
+   if (!card) {
+      console.error('Card component is missing a valid card.');
+      throw new Error('Card component is missing a valid card.');
+   }
+   if (typeof onClick !== 'function') {
+      console.error('Card component requires a valid onClick handler.');
+      throw new Error('Card component requires a valid onClick handler.');
+   }
+
+   // Get the card display from the cardUnicodeMap
+   const cardDisplay = cardUnicodeMap[card];
+
    // Extract the suit from the card string (last character)
    const suit = card[card.length - 1];
 
@@ -51,8 +63,6 @@ export function Card({
    return (
       <div
          className={clsx(
-            // to fit unicode characters neatly
-            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]',
             'text-8xl transition-transform duration-300 md:text-9xl',
             isDarkMode
                ? 'bg-elevated-dark-1 shadow-dark-1'
@@ -60,7 +70,9 @@ export function Card({
             isFlipped && flippedClass,
             isRed && redClass,
             isNotRed && notRedClass,
-            isSelected && '-translate-y-4 scale-110'
+            isSelected && '-translate-y-4 scale-110',
+            // to fit unicode characters neatly
+            'relative h-[76px] w-[56px] md:h-[101px] md:w-[74px]'
          )}>
          <button
             disabled={disabled}
@@ -69,11 +81,11 @@ export function Card({
             onClick={onClick}
             className={clsx(
                'wcag-focus',
+               disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                // to fit unicode characters neatly
-               'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]',
-               disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+               'absolute right-[-6px] bottom-[8px] leading-[0.8] md:right-[-8px] md:bottom-[12px]'
             )}>
-            {isFlipped ? cardUnicodeMap['Back'] : cardUnicodeMap[card] || card}
+            {isFlipped ? cardUnicodeMap['Back'] : cardDisplay || card}
          </button>
       </div>
    );

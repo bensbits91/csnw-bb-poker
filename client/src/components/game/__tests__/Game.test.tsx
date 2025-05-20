@@ -4,6 +4,7 @@ import { Game } from '../Game';
 import * as useGameHook from '@/hooks/useGame';
 import { cardUnicodeMap } from '@/constants/card';
 import ThemeProvider from '@/context/ThemeContext';
+import MockPlayersProvider from '@/context/__mocks__/MockPlayersProvider';
 
 jest.mock('@/hooks/useGame');
 jest.mock('lottie-react', () => ({
@@ -41,7 +42,9 @@ describe('Game Component', () => {
                theme: 'light',
                toggleTheme: jest.fn()
             }}>
-            <Game />
+            <MockPlayersProvider>
+               <Game />
+            </MockPlayersProvider>
          </ThemeProvider>
       );
 
@@ -64,8 +67,8 @@ describe('Game Component', () => {
       // Mock the useGame hook
       (useGameHook.useGame as jest.Mock).mockReturnValue({
          hands: [
-            ['2♠', '3♠', '4♠', '5♠', '6♠'],
-            ['7♠', '8♠', '9♠', '10♠', 'J♠']
+            player1Cards,
+            player2Cards
          ],
          finalHands: [
             { name: 'High Card', rank: 1, tiebreaker: [14] },
@@ -82,7 +85,9 @@ describe('Game Component', () => {
                theme: 'light',
                toggleTheme: jest.fn()
             }}>
-            <Game />
+            <MockPlayersProvider>
+               <Game />
+            </MockPlayersProvider>
          </ThemeProvider>
       );
 

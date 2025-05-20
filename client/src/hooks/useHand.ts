@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
  * Props for the useHand hook.
@@ -51,12 +51,22 @@ export const useHand = ({
     */
    const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
+   if (playerIndex < 0 || typeof playerIndex !== 'number') {
+      console.error(`Invalid playerIndex: ${playerIndex}.`);
+      throw new Error('useHand received an invalid playerIndex.');
+   }
+
    /**
     * Toggles the selection state of a card.
     *
     * @param {number} index - The index of the card to toggle.
     */
    const toggleCardSelection = (index: number) => {
+      if (typeof index !== 'number' || index < 0) {
+         console.error(`Invalid card index: ${index}.`);
+         throw new Error('toggleCardSelection received an invalid index.');
+      }
+      setIsLocked(false);
       setSelectedCards(prev =>
          prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
       );
@@ -97,10 +107,12 @@ export const useHand = ({
     *
     * @param {number} index - The index of the card to select or deselect.
     */
-   const handleCardClick = (index: number) => {
-      setIsLocked(false);
-      toggleCardSelection(index);
-   };
+   const handleCardClickWithIndex = useCallback(
+      (index: number) => () => {
+         toggleCardSelection(index);
+      },
+      []
+   );
 
    /**
     * Effect to reset the hand state when the game is reset.
@@ -123,7 +135,7 @@ export const useHand = ({
       isLocked,
       flippedCards,
       isSelection,
-      handleCardClick,
+      handleCardClickWithIndex,
       handleReplace,
       handleKeepAll,
       handleLock

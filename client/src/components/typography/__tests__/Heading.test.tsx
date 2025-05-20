@@ -4,7 +4,11 @@ import { Heading } from '../Heading';
 
 describe('Heading Component', () => {
    it('renders the correct HTML tag based on the level prop', () => {
-      render(<Heading level={2}>Test Heading</Heading>);
+      render(
+         <Heading level={2} ariaLabel="Test Heading">
+            Test Heading
+         </Heading>
+      );
 
       // Verify the correct tag is rendered
       const heading = screen.getByRole('heading', { name: 'Test Heading' });
@@ -13,7 +17,7 @@ describe('Heading Component', () => {
 
    it('applies the correct styles based on the appearance prop', () => {
       render(
-         <Heading level={3} appearance={1}>
+         <Heading level={3} appearance={1} ariaLabel="Styled Heading">
             Styled Heading
          </Heading>
       );
@@ -27,7 +31,7 @@ describe('Heading Component', () => {
 
    it('applies the correct styles based on the weight prop', () => {
       render(
-         <Heading level={1} weight="bold">
+         <Heading level={1} weight="bold" ariaLabel="Bold Heading">
             Bold Heading
          </Heading>
       );
@@ -39,7 +43,7 @@ describe('Heading Component', () => {
 
    it('applies the correct margin styles based on the top and bottom props', () => {
       render(
-         <Heading level={1} top="md" bottom="lg">
+         <Heading level={1} top="md" bottom="lg" ariaLabel="Margin Heading">
             Margin Heading
          </Heading>
       );
@@ -64,7 +68,11 @@ describe('Heading Component', () => {
    });
 
    it('renders the children correctly', () => {
-      render(<Heading level={1}>Child Content</Heading>);
+      render(
+         <Heading level={1} ariaLabel="Child Content">
+            Child Content
+         </Heading>
+      );
 
       // Verify the children are rendered
       const heading = screen.getByRole('heading', { name: 'Child Content' });

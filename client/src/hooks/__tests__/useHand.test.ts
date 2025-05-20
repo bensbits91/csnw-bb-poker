@@ -17,7 +17,7 @@ describe('useHand Hook', () => {
 
       // Select a card
       act(() => {
-         result.current.handleCardClick(1);
+         result.current.handleCardClickWithIndex(1)(); // Invoke the returned function
       });
       expect(result.current.selectedCards).toEqual([1]);
 
@@ -44,7 +44,7 @@ describe('useHand Hook', () => {
 
       // Select a card
       act(() => {
-         result.current.handleCardClick(1);
+         result.current.handleCardClickWithIndex(1)();
       });
       expect(result.current.selectedCards).toEqual([1]);
 

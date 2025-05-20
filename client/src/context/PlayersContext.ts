@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, use } from 'react';
 
 /**
  * Represents a player with a unique ID and a name.
@@ -48,3 +48,20 @@ export interface PlayersContextType {
 export const PlayersContext = createContext<PlayersContextType | undefined>(
    undefined
 );
+
+/**
+ * Custom hook to safely use the PlayersContext.
+ * Ensures the context is not accessed outside of a PlayersProvider.
+ *
+ * @returns {PlayersContextType} The PlayersContext value.
+ * @throws {Error} If the context is used outside of a PlayersProvider.
+ */
+export function usePlayersContext(): PlayersContextType {
+   const context = use(PlayersContext);
+   if (!context) {
+      throw new Error(
+         'usePlayersContext must be used within a PlayersProvider.'
+      );
+   }
+   return context;
+}
