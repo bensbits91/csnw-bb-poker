@@ -21,7 +21,7 @@ function App() {
                ? 'bg-csnw-gray-dark-50 text-white'
                : 'bg-white text-gray-900'
          )}>
-         <div className="container mx-auto max-w-[1280px]">
+         <div className="container mx-auto md:max-w-[520px] lg:max-w-[1280px]">
             <div className="flex flex-col gap-8">
                <GameHeader />
                <Game />
