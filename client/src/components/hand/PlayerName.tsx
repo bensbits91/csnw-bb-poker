@@ -51,7 +51,8 @@ export function PlayerName({
    cancelEditing
 }: PlayerNameProps): JSX.Element {
    return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2"
+      data-testid="player-name-container">
          {isEditing ? (
             <>
                {/* Editable Input */}
@@ -67,6 +68,7 @@ export function PlayerName({
                {/* Save Button */}
                <button
                   type="button"
+                  data-testid="save-name-button"
                   onClick={() => saveEditing(playerIndex)}
                   className="cursor-pointer text-green-500"
                   aria-label={`Save name for Player ${playerIndex + 1}`}>
@@ -75,6 +77,7 @@ export function PlayerName({
                {/* Cancel Button */}
                <button
                   type="button"
+                  data-testid="cancel-name-button"
                   onClick={() => cancelEditing(playerIndex)}
                   className="cursor-pointer text-red-500"
                   aria-label={`Cancel editing name for Player ${playerIndex + 1}`}>
@@ -85,6 +88,7 @@ export function PlayerName({
             <>
                {/* Display Player Name when not editing */}
                <span
+                  data-testid="player-name"
                   onClick={() => handleStartEditing(playerIndex)}
                   className="cursor-pointer">
                   {playerName}
@@ -92,6 +96,7 @@ export function PlayerName({
                {/* Edit Button */}
                <button
                   type="button"
+                  data-testid="edit-name-button"
                   onClick={() => handleStartEditing(playerIndex)}
                   className="cursor-pointer text-gray-500"
                   aria-label={`Edit name for Player ${playerIndex + 1}`}>

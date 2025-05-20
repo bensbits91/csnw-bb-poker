@@ -110,6 +110,7 @@ export function Hand({
    return (
       <article
          aria-labelledby={`player-${pIndex}-header`}
+         data-testid="player-hand"
          className={clsx(
             'relative flex flex-col gap-6 rounded-lg border-2 p-2 shadow-md sm:px-20 sm:py-6 md:px-6',
             isDarkMode ? 'bg-elevated-dark-1' : 'bg-elevated-1',
@@ -126,7 +127,7 @@ export function Hand({
          {/* Hand */}
          <ul className="mx-auto flex w-full justify-between xl:w-[80%]">
             {hand.map((card, index) => (
-               <li key={card}>
+               <li key={card} data-testid="card">
                   <Card
                      card={card}
                      isFlipped={flippedCards.includes(index) && !finalHand}
