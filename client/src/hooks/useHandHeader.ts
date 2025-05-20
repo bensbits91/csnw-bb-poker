@@ -24,7 +24,9 @@ import { useTheme, usePlayers } from '@/hooks';
 export const useHandHeader = (playerIndex: number) => {
    const { theme } = useTheme();
    const isDarkMode = theme === 'dark';
-   const winnerTextClass = isDarkMode ? 'text-teal-dark' : 'text-teal';
+   const winnerTextClass = isDarkMode
+      ? 'text-csnw-teal'
+      : 'text-csnw-teal-dark-30';
 
    const {
       players,

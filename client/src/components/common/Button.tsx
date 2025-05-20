@@ -72,9 +72,12 @@ export function Button({
    /**
     * Determines the CSS class for the disabled state based on the current theme.
     */
+   const enabledClass = isDarkMode
+      ? 'bg-csnw-teal text-black shadow-md shadow-black/70'
+      : 'bg-csnw-teal-dark-30 text-white shadow-md';
    const disabledClass = isDarkMode
-      ? 'disabled-button-dark'
-      : 'disabled-button';
+      ? 'text-csnw-gray-dark-10'
+      : 'text-csnw-gray-light-80';
 
    return (
       <button
@@ -85,9 +88,8 @@ export function Button({
          className={clsx(
             'wcag-focus flex items-center gap-2 rounded-md px-4 py-2',
             disabled
-               ? `md:cursor-not-allowed ${disabledClass}`
-               : 'hover-bright md:cursor-pointer',
-            isDarkMode ? 'button-dark' : 'button'
+               ? `bg-csnw-gray-light-30 md:cursor-not-allowed ${disabledClass}`
+               : `hover-bright md:cursor-pointer ${enabledClass}`
          )}>
          {iconName && <Icon name={iconName} />}
          {children}

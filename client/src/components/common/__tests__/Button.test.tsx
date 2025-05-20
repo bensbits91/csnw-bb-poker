@@ -43,7 +43,7 @@ describe('Button Component', () => {
 
       // Verify the dark mode styles
       const button = screen.getByRole('button', { name: 'Click Me' });
-      expect(button).toHaveClass('button-dark');
+      expect(button).toHaveClass('shadow-black/70');
    });
 
    it('renders an icon when iconName is provided', () => {

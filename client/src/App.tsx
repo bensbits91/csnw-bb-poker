@@ -16,9 +16,9 @@ function App() {
    return (
       <main
          className={clsx(
-            'min-h-screen w-full overflow-x-hidden px-2 pt-6 pb-15 md:px-12 md:pt-12',
+            'min-h-screen w-full overflow-x-hidden px-2 pt-6 pb-15 md:px-12 md:pt-8',
             isDarkMode
-               ? 'bg-[var(--csnw-gray-dark-50)] text-white'
+               ? 'bg-csnw-gray-dark-50 text-white'
                : 'bg-white text-gray-900'
          )}>
          <div className="container mx-auto max-w-[1280px]">
