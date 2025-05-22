@@ -28,14 +28,16 @@ export function rankHand(hand: string[]): {
    const suits = hand.map(card => card.slice(-1)); // ['♠', '♠', '♠', '♠', '♠']
 
    // Convert ranks to numeric values for comparison
+   const rankStringToInt = (rankString: string) => {
+      if (rankString === 'A') return 14;
+      if (rankString === 'K') return 13;
+      if (rankString === 'Q') return 12;
+      if (rankString === 'J') return 11;
+      return parseInt(rankString, 10);
+   };
+
    const rankValues = ranks
-      .map(rank => {
-         if (rank === 'A') return 14;
-         if (rank === 'K') return 13;
-         if (rank === 'Q') return 12;
-         if (rank === 'J') return 11;
-         return parseInt(rank, 10);
-      })
+      .map(rank => rankStringToInt(rank))
       .sort((a, b) => b - a); // Sort descending to make it easier to check for straights and get high card
    // rankValues = [14, 13, 12, 11, 10]
 
@@ -57,11 +59,13 @@ export function rankHand(hand: string[]): {
     */
    const rankingToReturn = (
       name: keyof typeof HAND_RANKINGS,
-      tiebreaker = rankValues
+      tiebreaker = rankValues,
+      winningCards: string[] = hand
    ) => ({
       rank: HAND_RANKINGS[name],
       name,
-      tiebreaker: tiebreaker
+      tiebreaker: tiebreaker,
+      winningCards: winningCards
    });
 
    const isFlush = suits.every(suit => suit === suits[0]);
@@ -97,7 +101,10 @@ export function rankHand(hand: string[]): {
       .find(rank => rankCount[rank] === 4);
    if (fourOfAKindRank !== undefined) {
       const name = 'Four of a Kind';
-      return { rank: HAND_RANKINGS[name], name, tiebreaker: [fourOfAKindRank] };
+      const winningCards = hand.filter(
+         card => rankStringToInt(card.slice(0, -1)) === fourOfAKindRank
+      );
+      return rankingToReturn(name, [fourOfAKindRank], winningCards);
    }
 
    // Check for Three of a Kind (used later)
@@ -133,7 +140,10 @@ export function rankHand(hand: string[]): {
    // Check for Three of a Kind, return if found
    if (threeOfAKindRank !== undefined) {
       const name = 'Three of a Kind';
-      return rankingToReturn(name, [threeOfAKindRank]);
+      const winningCards = hand.filter(
+         card => rankStringToInt(card.slice(0, -1)) === threeOfAKindRank
+      );
+      return rankingToReturn(name, [threeOfAKindRank], winningCards);
    }
 
    // If we have a pair, check for Two Pair or One Pair
@@ -147,17 +157,32 @@ export function rankHand(hand: string[]): {
          const pairsSorted = [pairRank, secondPairRank].sort((a, b) => b - a); // highest pair first for tiebreakers
          const remainingCards = rankValues
             .filter(val => val !== pairRank && val !== secondPairRank)
-            .sort((a, b) => b - a); // todo: this is wrong, in unit test, it should be [10, 9, 2] but is [9, 10, 2]
-         return rankingToReturn(name, [...pairsSorted, ...remainingCards]);
+            .sort((a, b) => b - a);
+         const winningCards = hand.filter(card =>
+            [pairRank, secondPairRank].includes(
+               rankStringToInt(card.slice(0, -1))
+            )
+         );
+         return rankingToReturn(
+            name,
+            [...pairsSorted, ...remainingCards],
+            winningCards
+         );
       }
 
+      const winningCards = hand.filter(card =>
+         [pairRank].includes(rankStringToInt(card.slice(0, -1)))
+      );
       // Default to One Pair and return
       const name = 'One Pair';
       const remainingCards = rankValues.filter(val => val !== pairRank);
-      return rankingToReturn(name, [pairRank, ...remainingCards]);
+      return rankingToReturn(name, [pairRank, ...remainingCards], winningCards);
    }
 
    // Default to High Card and return
    const name = 'High Card';
-   return rankingToReturn(name);
+   const winningCards = hand.filter(
+      card => rankStringToInt(card.slice(0, -1)) === rankValues[0]
+   );
+   return rankingToReturn(name, rankValues, winningCards);
 }

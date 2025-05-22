@@ -1,4 +1,4 @@
-import { Game, GameHeader } from '@/components/game';
+import { Game } from '@/components/game';
 import { useTheme } from '@/hooks/';
 import clsx from 'clsx';
 
@@ -23,7 +23,13 @@ function App() {
          )}>
          <div className="container mx-auto md:max-w-[520px] lg:max-w-[1280px]">
             <div className="flex flex-col gap-8">
-               <GameHeader />
+               <div>
+                  <h1
+                     aria-label="CSNW Poker by Ben"
+                     className="text-center text-3xl">
+                     CSNW Poker by Ben
+                  </h1>
+               </div>
                <Game />
             </div>
          </div>

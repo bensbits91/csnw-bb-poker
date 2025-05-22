@@ -34,6 +34,7 @@ interface HandProps {
       name: string;
       rank: number;
       tiebreaker: number[];
+      winningCards?: string[];
    };
    onUpdatePlayerName: (playerIndex: number, name: string) => void;
    onReplaceCards: (playerIndex: number, cardIndices: number[]) => void;
@@ -59,6 +60,9 @@ export function Hand({
    onReplaceCards,
    onLockHand
 }: HandProps) {
+   if (isWinner) {
+      console.log('bb ~ Hand.tsx:62 ~ finalHand:', finalHand);
+   }
    const {
       selectedCards,
       isLocked,
@@ -126,17 +130,32 @@ export function Hand({
          />
          {/* Hand */}
          <ul className="mx-auto flex w-full justify-between xl:w-[80%]">
-            {hand.map((card, index) => (
-               <li key={card} data-testid="card">
-                  <Card
-                     card={card}
-                     isFlipped={flippedCards.includes(index) && !finalHand}
-                     disabled={isLocked || isGameOver}
-                     isSelected={selectedCards.includes(index)}
-                     onClick={handleCardClickWithIndex(index)}
-                  />
-               </li>
-            ))}
+            {hand.map((card, index) => {
+               const isAWinningCard =
+                  finalHand?.winningCards?.includes(card) || false;
+
+               if (isWinner) {
+                  console.log('bb ~ Hand.tsx:134 ~ {hand.map ~ card:', card);
+                  console.log(
+                     'bb ~ Hand.tsx:153 ~ {hand.map ~ isAWinningCard:',
+                     isAWinningCard
+                  );
+               }
+
+               return (
+                  <li key={card} data-testid="card">
+                     <Card
+                        card={card}
+                        isFlipped={flippedCards.includes(index) && !finalHand}
+                        disabled={isLocked || isGameOver}
+                        isSelected={
+                           selectedCards.includes(index) || isAWinningCard
+                        }
+                        onClick={handleCardClickWithIndex(index)}
+                     />
+                  </li>
+               );
+            })}
          </ul>
          <HandToolbar
             playerIndex={playerIndex}
