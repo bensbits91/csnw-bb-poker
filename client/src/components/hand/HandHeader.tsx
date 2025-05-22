@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { Heading } from '@/components/typography';
 import { Icon } from '@/components/icons';
 import { useHandHeader } from '@/hooks';
 import { PlayerName } from './PlayerName';
@@ -56,14 +55,18 @@ export function HandHeader({
       inputRef
    } = useHandHeader(playerIndex);
    const pIndex = playerIndex + 1;
-      // Validate playerIndex
+   // Validate playerIndex
    if (playerIndex < 0 || playerIndex >= players.length) {
       console.error(`Invalid playerIndex: ${playerIndex}.`);
-      throw new Error(`HandHeader received an invalid playerIndex: ${playerIndex}.`);
+      throw new Error(
+         `HandHeader received an invalid playerIndex: ${playerIndex}.`
+      );
    }
    // Validate players array
    if (!Array.isArray(players) || players.length === 0) {
-      console.error('useHandHeader returned an invalid or empty `players` array.');
+      console.error(
+         'useHandHeader returned an invalid or empty `players` array.'
+      );
       throw new Error('HandHeader requires a valid `players` array.');
    }
    // Validate finalHand
@@ -73,9 +76,11 @@ export function HandHeader({
    }
    // Validate winnerTextClass
    if (!winnerTextClass) {
-      console.warn('winnerTextClass is missing or invalid. Defaulting to an empty string.');
+      console.warn(
+         'winnerTextClass is missing or invalid. Defaulting to an empty string.'
+      );
    }
-   
+
    return (
       <header
          id={`player-${pIndex}-header`}
@@ -86,7 +91,7 @@ export function HandHeader({
          <div className="flex items-end gap-2">
             {/* Player Icon */}
             <Icon name={`Player${pIndex}Icon`} size={8} />
-            <Heading level={2} appearance={3}>
+            <h2 className="text-2xl/7 md:text-2xl/9">
                <PlayerName
                   playerIndex={playerIndex}
                   playerName={players[playerIndex].name}
@@ -99,7 +104,7 @@ export function HandHeader({
                   saveEditing={saveEditing}
                   cancelEditing={cancelEditing}
                />
-            </Heading>
+            </h2>
          </div>
          <div className="flex items-end gap-2">
             {/* Final Hand Display */}

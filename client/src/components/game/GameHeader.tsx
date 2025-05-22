@@ -1,5 +1,3 @@
-import { Heading } from '@/components/typography';
-
 /**
  * GameHeader component.
  * Displays the main header for the poker game, including the title and a brief description.
@@ -9,13 +7,11 @@ import { Heading } from '@/components/typography';
 export function GameHeader() {
    return (
       <div>
-         <Heading
-            level={1}
-            appearance={2}
-            ariaLabel="CSNW Poker by Ben"
-            className="text-center">
+         <h1
+            aria-label="CSNW Poker by Ben"
+            className="text-center text-3xl">
             CSNW Poker by Ben
-         </Heading>
+         </h1>
       </div>
    );
 }
